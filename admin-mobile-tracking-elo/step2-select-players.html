@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Select Players - Tournament Creation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom checkbox style to match design requirement */
+        .custom-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col overflow-hidden text-slate-900 dark:text-slate-100">
+<!-- Top App Bar -->
+<div class="flex items-center bg-white dark:bg-slate-900 p-4 pb-2 justify-between border-b border-slate-200 dark:border-slate-800 shadow-sm z-10">
+<div class="text-slate-900 dark:text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Select Players</h2>
+</div>
+<!-- Stepper -->
+<div class="flex w-full flex-row items-center justify-center gap-2 px-4 py-6 bg-background-light dark:bg-background-dark">
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-800"></div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto px-4 pb-24">
+<!-- Search Bar -->
+<div class="mb-6 sticky top-0 z-10 pt-2 bg-background-light dark:bg-background-dark pb-2">
+<label class="flex flex-col h-12 w-full shadow-sm">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="text-slate-400 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-slate-900 dark:text-white focus:outline-0 border-none bg-transparent h-full placeholder:text-slate-400 dark:placeholder:text-slate-500 px-0 pl-1 text-base font-normal leading-normal" placeholder="Search players by name..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-slate-900 dark:text-white tracking-tight text-xl font-bold leading-tight">Available Players</h3>
+<span class="text-primary text-sm font-semibold cursor-pointer">Select All</span>
+</div>
+<!-- Player List -->
+<div class="flex flex-col gap-3">
+<!-- Player Item 1 (Selected) -->
+<label class="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-primary/30 ring-1 ring-primary/10 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 bg-slate-200" data-alt="Portrait of Julian Dasilva" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4Ss4ULIcQ13C9p5Bf2M94mLp6BRH6JTlQIlW7upDM8aZoHTRqn49065M3BN7i5sl8EKUhGm_XzXnw3MHmTBpAaeNis6XUkY_sa28z8dqRNyvSMAkz0T7nz2uyGckRG0D4VIIbeEyCls7fujTLehpYvyyjQuR-e0phsJbb1j0scOngXB8aSp9peIwEc5VN-EnMeQ_vAnpHFrWcDLe6TACEZN_59Mdrf4bxTsg8COQdZzYL9xuJ8AYSxodNi4taSgOf6mmyd21oEPI");'></div>
+<div class="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-normal truncate">Julian Dasilva</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm truncate">ELO: 1450 • 24 Matches</p>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center">
+<input checked="" class="custom-checkbox h-6 w-6 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-primary checked:bg-primary checked:border-primary focus:ring-primary focus:ring-offset-0 focus:outline-none transition-colors" type="checkbox"/>
+</div>
+</div>
+</label>
+<!-- Player Item 2 -->
+<label class="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 bg-slate-200" data-alt="Portrait of Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_b-hqmQA-BLtaisKRn_hBSYX9knt0BOMZnlTQDMsRbTb1aAw1MdDbWZx7_ZpeKEQbAjM2G9BfuPh7ToPaOP-N8orDhrLLOQw8BtNDd2-6v6ouyrN3TBfg-VS9T2ZXzZmA1AJDMBt9u6wPU-NICiHgHyLePzbUEWiK-uClmV5O1KmQ2OSkdT5zyPpxP9ZXXpOLHnlhl1KadYHBpF9rnT58pqmv4LmfAvo4AmJYS17nfZDhtr2Rq_1c61ZMY56KdYcvjAhPxmVZ22U");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-normal truncate">Sarah Jenkins</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm truncate">ELO: 1320 • 12 Matches</p>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center">
+<input class="custom-checkbox h-6 w-6 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-primary checked:bg-primary checked:border-primary focus:ring-primary focus:ring-offset-0 focus:outline-none transition-colors" type="checkbox"/>
+</div>
+</div>
+</label>
+<!-- Player Item 3 -->
+<label class="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 bg-slate-200" data-alt="Portrait of Mike Ross" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzt9D8Jcqtjgk0fWusF5Nh0EknQbf3QawwCfQGSRv6mUvpZ_d94B1MSorarDMZ6vDeHkULaexWxIqUMATgxbVREnDpslGbQuzJs-b6C2-dknTXXbjnJNpDGB89qdDJcZxwQU9Bv5xr7r_30M-JrrjsezE2e9Msj5HrktdYhwR92e9Q3NgdUKeZ4rvVlGKqLcKvn42_77NYYWij5mhM5Pp3ibTqEs5ta71sTFkSqxOwxdkrCq6NVZ1HyTXhGebWb2Y4GGBFY4OpoL4");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-normal truncate">Mike Ross</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm truncate">ELO: 1510 • 45 Matches</p>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center">
+<input class="custom-checkbox h-6 w-6 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-primary checked:bg-primary checked:border-primary focus:ring-primary focus:ring-offset-0 focus:outline-none transition-colors" type="checkbox"/>
+</div>
+</div>
+</label>
+<!-- Player Item 4 -->
+<label class="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 bg-slate-200" data-alt="Portrait of Alex Morgan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMKBofN9ujHBbAAznZTt2XxlvJLelfdIvtpMUYrKXG2dhptGExGokVnTDpLmzI_TvbNJyFlpCfkxZky_Kz4vSCii33zeYwzGU2PGzLbuELJKQG8rnVrUixUt2tobQM3ob-CZmunLVHba8wKSfZzqhd0XdMaw69aVbpBtkoyg3Rpb1PrqkxPNZ5G4AGHoInNjZeMk-b0JPFjMBtZDlxnoOa6QrtfDjwpthDcGN4dm1D-XWLk2RqnXP5P9ML69h5FDef1FfqCTMhhxg");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-normal truncate">Alex Morgan</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm truncate">ELO: 1250 • 8 Matches</p>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center">
+<input class="custom-checkbox h-6 w-6 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-primary checked:bg-primary checked:border-primary focus:ring-primary focus:ring-offset-0 focus:outline-none transition-colors" type="checkbox"/>
+</div>
+</div>
+</label>
+<!-- Player Item 5 (Selected) -->
+<label class="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-primary/30 ring-1 ring-primary/10 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 bg-slate-200" data-alt="Portrait of John Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_mFOGpRLu0PKk5SrQvv5KFeTXtdfc9TugVio2zjiWSDsDZ-axQCzlw-1hyGWbbsQL2pdwp90GYGjgPhqrAh38-YNBQ0u_7rBGo95qsGcrYluY_xlE_n354V1R4ySI4W2Ew9uJenQjo3drJKaH0WurYWeU7zkVPxbSY9Zi79PFjCmId977ksRRB0zltotqllh6b0fYvIS4geryKtuGiONPiv7WydS4kE7FrGNJnWwawMKGCEqdHVkH1p4qlwdhStIy5oH70Gjuwyc");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-normal truncate">John Doe</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm truncate">ELO: 1600 • 32 Matches</p>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center">
+<input checked="" class="custom-checkbox h-6 w-6 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-primary checked:bg-primary checked:border-primary focus:ring-primary focus:ring-offset-0 focus:outline-none transition-colors" type="checkbox"/>
+</div>
+</div>
+</label>
+<!-- Quick Add Player Banner -->
+<div class="mt-4 p-4 rounded-xl bg-primary/10 border border-primary/20 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-white">
+<span class="material-symbols-outlined text-xl">person_add</span>
+</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-white font-semibold text-sm">Can't find a player?</p>
+<p class="text-slate-500 dark:text-slate-300 text-xs">Add them quickly to the tournament list.</p>
+</div>
+<button class="px-4 py-2 bg-white dark:bg-slate-800 text-primary font-semibold text-sm rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                        Quick Add
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Action Bar -->
+<div class="w-full bg-white dark:bg-slate-900 p-4 border-t border-slate-200 dark:border-slate-800 safe-area-bottom">
+<div class="flex gap-4 items-center">
+<div class="flex flex-col flex-1">
+<span class="text-xs text-slate-500 dark:text-slate-400">Selected</span>
+<span class="text-lg font-bold text-slate-900 dark:text-white">2 Players</span>
+</div>
+<button class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                Continue
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

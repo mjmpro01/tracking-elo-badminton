@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EloTracker - Global Leaderboards</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-content": "#ffffff",
+                        "primary-dark": "#0b5bb0",
+                        "primary-light": "#54a3f2",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased min-h-screen flex flex-col">
+<header class="flex items-center justify-start whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15202b] px-10 py-4 sticky top-0 z-50 gap-12">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">trophy</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">EloTracker</h2>
+</div>
+<div class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Leaderboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Tournaments</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Players</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Rules</a>
+</div>
+</header>
+<main class="layout-container flex h-full grow flex-col px-4 md:px-10 lg:px-20 py-8">
+<div class="layout-content-container flex flex-col w-full max-w-[1200px] mx-auto flex-1 gap-8">
+<div class="@container">
+<div class="flex flex-col lg:flex-row items-stretch rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15202b]">
+<div class="w-full lg:w-1/3 bg-center bg-no-repeat bg-cover min-h-[200px] relative group" data-alt="Esports tournament arena stage with lights" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCatcMqth_tIQoflfhclnHtVaK4kOXD4Jv_iYuxSzvgCfQ7izYbggdyo1Hj0s-7V6i7ohcfiXdoUUpIBpuxc_P9vj3x_VlkMDpoTAA5oOuuDVu_s6qHuWO35aCDLo3QgnYAYIvl8laJVJ0YE13GPRZw9afbToseW8T505IS2MdUPTxDlGrwqqwUhOmlNXsE86w27A2kZVXu_bQyVB3Spijtk94rOaC6Rb7KoDeIRAzvlv-E1HU56s2Kd3upW2ADkV3HwMwAivuHeIc");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+<span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Completed</span>
+</div>
+</div>
+<div class="flex w-full lg:w-2/3 grow flex-col items-start justify-center gap-4 p-6 lg:p-8">
+<div>
+<p class="text-primary text-sm font-semibold mb-1">Latest Major Event</p>
+<h1 class="text-slate-900 dark:text-white text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Winter Championship 2023</h1>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-slate-400 mt-1">calendar_month</span>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Date</p>
+<p class="text-slate-900 dark:text-slate-200 text-base font-semibold">Dec 15 - Dec 17, 2023</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-yellow-500 mt-1">emoji_events</span>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Champion</p>
+<p class="text-slate-900 dark:text-slate-200 text-base font-semibold">Team Liquid</p>
+</div>
+</div>
+</div>
+<div class="h-px w-full bg-slate-100 dark:bg-slate-700 my-2"></div>
+<div class="flex flex-wrap items-center justify-between w-full gap-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal max-w-lg">The biggest upset of the season happened in the semi-finals! Catch up on the stats.</p>
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white text-sm font-medium transition-colors gap-2">
+<span>View Full Results</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Global Leaderboard</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base">Top ranked players based on current Elo rating.</p>
+</div>
+<div class="w-full md:w-auto">
+<div class="flex w-full md:w-80 items-stretch rounded-lg h-10 ring-1 ring-slate-200 dark:ring-slate-700 focus-within:ring-2 focus-within:ring-primary/50 transition-all bg-white dark:bg-[#15202b]">
+<div class="text-slate-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 text-sm px-3" placeholder="Search player or team..."/>
+</div>
+</div>
+</div>
+
+</div>
+<div class="w-full overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-[#15202b]">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+<th class="py-4 pl-6 pr-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 w-20">Rank</th>
+<th class="py-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Player</th>
+<th class="py-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Rating</th>
+<th class="py-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Change (30d)</th>
+<th class="py-4 px-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Win Rate</th>
+<th class="py-4 pl-3 pr-6 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Matches</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-500 font-bold">1</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player VoidWalker" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAMc4pYJsrYc9e14I8pna58sdBb_HaWK7IdoP71xTDNdO_hjjPkslPvPF03Xs5vST-DDFlJHhhTsRqpHaEiLlMAZyGm617BfZEv3To5WwgVbgLKVYhEDX4kZKQ-1BH_Kw4IDp4XWTEeNyfQGi6a9LQzZjtQ_mc-HjeeE65Ham1AkYd5jMm4upzL8s8_fvbAsLQRla4EZMPI0ShiouTBBITOUnstv2gBGi60CtoH6guw6xuvRAReP7Smfn9mR57lyTQ1y-sfjWz0xBw"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">VoidWalker</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Team Liquid</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,845</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                        +42
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">68.4%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">1,204</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold">2</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player NightShade" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_JXvxOc3u7vVUkGqBqgx7qa8_2uDTDaDS11pY6Gg4TwNDnkGXmAgTMty2EbbNuWyfGAOj6FWeh8-n6KtZ5COdC-rWWKCrETQYNas0PgakNt1U2YVcfWqIyocOW2iXQozTQDMj-mEvUUJVcOtZnPSsEAMCT66WLCEc7boWs7CG-oEJtgE_959EGisFP24P4tjEhCfFhTuQpdQI4pNVZ05q3m2DqI_fQXqMJ-6k0FbL361c5z3uABeu7LJ08jSi3VdnLiTTwvIZ1eI"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">NightShade</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Cloud9</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,812</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                        +15
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">65.1%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">982</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold">3</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player FakerFan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAe2qZC_PxIyiJPCfCYr1wYb3Hycdbab91Jq6CnZ-_ipHzjkFN9RzKflkVSHQ-dWAzqt6X0qKge8prtzLyXUj2xKqSEYsTtDd4RZJ4KhR3TKM8pBIWS5eKl24uxgkBDw0-e3dImrmfdxq4u9pX_wypOEzUBU5VB5im6q6QKNAxTWRxOWY8Y8FNB2CwYWnkeE13kgeTYoD-WhqH0AjDcorEG7QDLzr0msOLFAHH-4SfjVm1-SfWiOKZgU-xiS5STM_FZVQlesLCBvEs"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">FakerFan</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">T1 Academy</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,798</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-rose-600 bg-rose-50 dark:bg-rose-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                                        -8
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">62.8%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">1,450</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold">4</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player ApexPredator" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrJznamnmdfl9TGwKxn0AtAfY1ZYDnUg5X5sgVQV3ArO4u3jW8CbX-ZHndbPbzwnbYKsyiZRIuCUBkv3FiwpR3Daa-ZnCl2prv9luPE0rmq6V9-5sUi8jxt1IKdqwm5G5JPFuEvdfNFiqVF6Dz398XcVALNDOCRRw6Ac6ce_WBcTPR7sSJaYFeYyb8dP6CBZ5NaTJKU39M5Q-Aqg3SAKDc5ASW5FiKmCUrouwcZYUtC7e960wtpK7jMz8m9UpLsGxukDunk5jvfIA"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">ApexPredator</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Free Agent</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,765</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-slate-500 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+                                        0
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">61.2%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">890</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold">5</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player StarLight" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQj-dzYFpqjOccobYx525l8Q_aQA3VlGqkUEBhguqXxfgLZ4LUI4POVM5HzXJFEhmrJMBAPEmdJ8sDnzSnjG0XSmHWEBdMlvfLKqbFxNPzFn8Tzuzbmex9kO3MyIA-MWig5YiGm-GfDJ7sWx_kZtjHhbHxF7FkfqPEY8yBj0kTHCV0Z6DfBFVf0EhDasdMncyF5eeUAhwwK0JtI0lADgF5-wxUAmjcYtE1U2tcga0ioHckLVRoyos1xC0GhwyU7P42unq3HtHIdXU"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">StarLight</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">G2 Esports</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,741</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                        +112
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">71.0%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">340</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="py-4 pl-6 pr-3 font-medium text-slate-900 dark:text-white">
+<div class="flex items-center justify-center size-8 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold">6</div>
+</td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Avatar of player IronClad" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMhHkMifOmoXcKeOOBDmDIYtYVHT8eYi57mmYAAxJxIEQpEMGcBJSfegnE6AYrpY7G4uCbp65cP1c-_rgMBIaEIcNKH1KtZ7GixE4hY-zxmLK91X8WIxhOk5sOJe5czJQS5M9ld_E4NilWQdxtJspvjydrgYGZ4ReERe1jYXjXsux2wegtXuyWixANkyiy56BWTIFGBePrOnsrRuFs0nvOUlgE41l8n3-_w-3bc2ca0o89qvIy39OMZQh-qU50ssEkEqhwxkxT3wg"); background-size: cover;'></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">IronClad</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Fnatic</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-3 text-right font-mono font-bold text-slate-900 dark:text-white text-base">2,730</td>
+<td class="py-4 px-3 text-right">
+<div class="inline-flex items-center gap-1 text-rose-600 bg-rose-50 dark:bg-rose-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                                        -24
+                                    </div>
+</td>
+<td class="py-4 px-3 text-right text-slate-600 dark:text-slate-300">59.5%</td>
+<td class="py-4 pl-3 pr-6 text-right text-slate-600 dark:text-slate-300">2,100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-[#15202b] px-4 py-3 flex items-center justify-between">
+<p class="text-sm text-slate-500 dark:text-slate-400">Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">6</span> of <span class="font-medium text-slate-900 dark:text-white">12,482</span> results</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-white dark:hover:bg-slate-700 transition-colors" disabled="">Previous</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15202b] py-8">
+<div class="layout-content-container flex flex-col md:flex-row max-w-[1200px] mx-auto px-4 md:px-10 lg:px-20 items-center justify-between gap-6">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<span class="material-symbols-outlined text-2xl text-primary">trophy</span>
+<span class="font-bold text-lg">EloTracker</span>
+</div>
+<div class="flex gap-6 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">API</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<p class="text-xs text-slate-400">© 2023 EloTracker Inc. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

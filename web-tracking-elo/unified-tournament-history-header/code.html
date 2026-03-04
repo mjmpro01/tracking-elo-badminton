@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tournament History - ProLeague</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen text-slate-900 dark:text-slate-100 flex flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8 w-full">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white mr-auto">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">EloTracker</h2>
+</div>
+<div class="flex items-center gap-9 hidden lg:flex ml-auto">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Leaderboards</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Tournaments</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Players</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Rules</a>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+<div class="flex flex-wrap justify-between items-end gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-3xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">Tournament History</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal max-w-xl">Archive of past competitive events, results, and champions. Review match details and Elo adjustments.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+<span>Sort</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="md:w-72 h-48 md:h-auto bg-slate-200 relative shrink-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Esports arena with blue lighting and gaming screens" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAEUfgWA348rwHFkGNFkNfgcGkmIcTiAPlujqSkhHrZwPogTdkZjQVE8j7dvgyuKuICMKj8fEO4hERODV5HOAb6FZB4JSJp-W1rrh8ionZz1IkrReNq9ac_RGAsoZYBMia3IPchmxc8wyMfFoWHt_MeuE9DlLaRXcgMZPLLZJbUFM9bJLhigY-Gopvn2ge0AyYF88kQBlbBVTs9wBNtKRrw45HWSmJG6YmKywo_TNLEQ2TLHs5JAzDc2oQz34yum7_s9gs4uZGI3gM');"></div>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Major</div>
+</div>
+<div class="flex-1 p-6 flex flex-col gap-6 justify-between">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">Winter Championship 2023</h3>
+<span class="text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                Dec 15, 2023
+                            </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mt-1">
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">groups</span> 32 Teams
+                            </span>
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> K-Factor: 40
+                            </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Top Performers</p>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-yellow-400 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Team logo with eagle mascot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCw6Jio8VmLBPkQGyEAjRibxxuULLmOua_u0f73extz1BpxwrMCrQ0HwubFV7wZOhe_jfq4QBX78A_WwGP3Yv6K_tA5NS94pRD9PaiD1BBrWoLwSjcl9C6UnPZeVNgHCsdj5T-ze5GlHlRIr72zIUt7xGy8Pf5TighM0xLpd4IZahEqzKPddkZXcFwiSL-6R4RjnOvdRTXyONnzVrK_PaNTGc1iu3r_kuivPjdLmWYur3AhS2RlIQ5jQZWI6u1GcscnHHS0Dptg0hM');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 text-yellow-900 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">1</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Neon Tigers</span>
+<span class="text-xs text-slate-500">+124 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-slate-300 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Team logo with shield symbol" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsMsVECoE-6N0cHzVL26DkeGEER7y2OnmrGhitymuVtb_-YXguX9Ea2gb7QQKaucapLjCUxWVn13x1fg5ZoJUgbun1pqfVhhapyJFivfEIvJoZevKBNrfBKJCYPHYhljk5PG-NUFtz7RiEOQpyp5suO_KNAEFI_s2CpZr31T77uROwe8_LbVyaOCTyUCeMuzjdjqZo_q7QBDDmuCTw0kHJ4ARYS8yqEIqsHfAuO5SbYFQus5tY9lh5u-KdOrdXiZ__xyTC_3VZsIc');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-slate-300 text-slate-800 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">2</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Void Walkers</span>
+<span class="text-xs text-slate-500">+62 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-amber-600 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Abstract geometric team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD3V7y9Oymq4uwjr242CWkx9y_gCeeM2lYiyd5VI7Rv-naYAGp0uh56rP2uWiBsAVISkazAufNhbVGYGOX_g1Jje0oGp_rOmloJCktCS5tJMyt9HWSiYRNEMPfVPeSxEasaf7LaLU2LyQPDd7EQF8JtjGcjSxNlM30NAzMQw4FNkzLH3AsmlZSNknYyFJutRY14P7M_bV8f8hLhUs-E8aLnEVtQ3rILNqv_10vrlieWvUqxDp1eJxKp-wmuwzk-VOCeAI2Kr1KIN38');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-amber-600 text-white text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">3</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Arctic Fox</span>
+<span class="text-xs text-slate-500">+32 Elo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 md:border-l border-t md:border-t-0 border-slate-100 dark:border-slate-800 flex items-center justify-center md:w-48 bg-slate-50 dark:bg-slate-800/50">
+<button class="w-full flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white hover:border-primary dark:hover:bg-primary dark:hover:border-primary text-slate-700 dark:text-slate-200 font-bold py-2.5 px-4 rounded-lg transition-all text-sm group/btn">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="md:w-72 h-48 md:h-auto bg-slate-200 relative shrink-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Dark gaming setup with red lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOic87bRmIYADViwZ9Fe7CdaiEwmLAl8wdCGknTxeH440epYk0f61PfBeOrmDqTKACRkKVxQgdFx9pkJViF74bQnayuZpxl23mO0wH6rMAMpkGvjQ_h3NcNLAZyijSWxwopywJj1jD3-D8SnlpZmZQspICp3_fzA1_aKpEJwBucX3CaTOmFgRoKp58n_DjCBawuIlEIxkNbPuB91ACRR3voC4MI1V8fBcWw1AQ3M5lyF_IpqzvPQk1yZiqv9z4Uhhfjs7fzelVaFc');"></div>
+<div class="absolute top-3 left-3 bg-slate-800/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Minor</div>
+</div>
+<div class="flex-1 p-6 flex flex-col gap-6 justify-between">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">Fall Skirmish Series</h3>
+<span class="text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                Oct 22, 2023
+                            </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mt-1">
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">groups</span> 16 Teams
+                            </span>
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> K-Factor: 20
+                            </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Top Performers</p>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-yellow-400 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Purple minimalist team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9gF2WzqXNmDn3BkAzc4L_bjAcCCH6UsRbgp4BagqRkh01dFPrHGUvOC43drwMxQfPUcwmNWBzJrNpdH1NM8cTjOzseNSfbyeveOpTWwqmN0MMdl2Oe49gliSa2cXE284Jyr8RbzUMIXvsCvfwYYKhKgmjhi2vpG1chBrZl9ROeDDQsMn_BQ71o7kYhI4HNd_ZuQkY8lg0MoBUu8WIVtXsqdn4dzU2e-XxkLdy0apkyvahY4oJqeq0OLSGuPiLDfZBBf8bdEdmKn0');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 text-yellow-900 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">1</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Echo Squad</span>
+<span class="text-xs text-slate-500">+45 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-slate-300 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Blue lightning team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDw8WYzleYjcflklnnBIN1GM2V6FsvXy03qpoqeyx3M9k9GOXhaB5tIih8y6F3vu7HqzPYfDXgz5SueQqELCfO0I7dtm4b2ONmQIaUy3mMjtKROsZOv7Vv4IyG8ezsyhOvEP_CGtW0IQm0MtYVeCwbXWy_Zg0Fbo8wc8H_3K5k4gtmwiWGLM-ory9zIzJwyCxFHt-066sM7TnhvRh0VIskoJ6szgaJ9yStPbNBqW8rNPI2cTbYmHZm4dUTKHKOmfERsGu-pwxgOwGs');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-slate-300 text-slate-800 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">2</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Cloud Breakers</span>
+<span class="text-xs text-slate-500">+22 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-amber-600 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Green dragon team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAt67PO9urYM8sgfM5LTj2qvANgvLLPLGMDjWM2bVUTO_TZBhE6XU7Sn-9prDWvR7ouheUUHibljouRqJBtdTqNhI8o7rlXmozalTQYZh6B_59JhHEr9Wen0QMwm5bFaH9LtjUgIZJdIkmyzkxcWWgjZ4tKgMwiFdoLKxA_ak6kLZMSdxjJ4JwhW1yKiwjWDhZR2aNmFD7KJNdbd3Ytsoa9JPRoo7qZSF05Nfhl-oqYRJJskTiIKe8pbaowg4HasbHmCqv8mPziQBI');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-amber-600 text-white text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">3</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Venom Esports</span>
+<span class="text-xs text-slate-500">+10 Elo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 md:border-l border-t md:border-t-0 border-slate-100 dark:border-slate-800 flex items-center justify-center md:w-48 bg-slate-50 dark:bg-slate-800/50">
+<button class="w-full flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white hover:border-primary dark:hover:bg-primary dark:hover:border-primary text-slate-700 dark:text-slate-200 font-bold py-2.5 px-4 rounded-lg transition-all text-sm group/btn">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="md:w-72 h-48 md:h-auto bg-slate-200 relative shrink-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Large esports stadium crowd" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFsSGaBY-GNA6lOaYVa7cU7jF5K4u7b78vzDkXwhQtYDtD2hoWqLdbO0MQJ0RDyRwY9R_YuF8Xok4o2-TeZvYuus-a8CSSkcesH_8HVQr-Yo05dKyE5Tc7BRIC-YZYQjHiuId9JlqOX1H9QDSAsoqgWuiNDg595kdKwossyvgDaRldSPR1Err5diusd9VXouum3MbVqM3DjPY6GH4vFxWOr4VRstbznVsHjT8aqKaupAIqtLL-sj63lhBJehBzKTMf8-V7-lpgmwk');"></div>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Major</div>
+</div>
+<div class="flex-1 p-6 flex flex-col gap-6 justify-between">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">Summer Split Finals</h3>
+<span class="text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                Aug 12, 2023
+                            </span>
+</div>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mt-1">
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">groups</span> 64 Teams
+                            </span>
+<span class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> K-Factor: 50
+                            </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Top Performers</p>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-yellow-400 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Neon blue wolf team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDUUqpEal8_LQaRjx0kIw-J0lGxr8psJi-Ujtxw4hz99GajuCJpD6LtOSm5W7I95SasFAGCk5XYvK8nNrBuqqq-PaOzZ4dyogDJtsVYW6N4tWWXhhSFqHl2DKeGttam7TyU-pK7iLNAkFsc8yg7dlAAwnSMYP2TJgmG6kiohkkjohYf1xXrMifq58yiIZLn6TxRNpCV_fweBhip3hATLlDxGYUippvAf0xCTvvAGBzzpMIZm1aA32Zrd4oQ69s0KQN7acO9zJX6qlg');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 text-yellow-900 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">1</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Iron Wolves</span>
+<span class="text-xs text-slate-500">+180 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-slate-300 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Team logo with eagle mascot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASU_ysu3c0UVDOqtUV15LeARtprOaF3avx6ueqZJJFoQxJtqSBaCgyRa1V9W2HJnBLkhyOL2VsQK4WK9QOOkWtGDeiSVlOmr-J8mUYwpVDKQ-Ldz1vcyiopkckgKMOAu0bDJJ31JO_S0x1s40WbrGP-QT3gssDCu-G9n6l-RoOJMVgWsOOQKOPmCy-1LAEy5IHXtL5bcGyb-L7EDTSq6bReIN9KHNte5cjhP9eU64qSywDmkcEMUDd8yLnZznwDJdOcw2aXEiWmE0');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-slate-300 text-slate-800 text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">2</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Neon Tigers</span>
+<span class="text-xs text-slate-500">+90 Elo</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full border-2 border-amber-600 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Red cat silhouette team logo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBhm2XXsGksbDg25LyY0JlEbAawC9dEY_zlKSu3hVC3bugCNrUO4w_ZRbWjkOba8UAu1XbrOLJxKW584zi7dwRQWBz4WNvTQ_6oMRdCkZGg_dDXF87_uwTGUKb-HyKMBogzBQT1m_KUYhoZjg_eSD68wGtZq5M6w4ruTaT49Cc3KFb9td-tVtjYxP_ajbcqGXZ54M2Oji46xTNBy6GL30QTUqpvkdE0d3k-NC4kmMPEjN2B_3vxY1MWm87aCutDIrKbXPq29EUiNjc');"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-amber-600 text-white text-[10px] font-bold size-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900">3</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Red Phantom</span>
+<span class="text-xs text-slate-500">+45 Elo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 md:border-l border-t md:border-t-0 border-slate-100 dark:border-slate-800 flex items-center justify-center md:w-48 bg-slate-50 dark:bg-slate-800/50">
+<button class="w-full flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white hover:border-primary dark:hover:bg-primary dark:hover:border-primary text-slate-700 dark:text-slate-200 font-bold py-2.5 px-4 rounded-lg transition-all text-sm group/btn">
+<span>View Details</span>
+<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex justify-center pt-8 pb-12">
+<button class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary font-medium text-sm transition-colors">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                    Load more tournaments
+                </button>
+</div>
+</div>
+</main>
+
+</body></html>

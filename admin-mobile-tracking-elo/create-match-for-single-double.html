@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<title>Create New Match</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-md mx-auto bg-white dark:bg-slate-900 min-h-screen shadow-xl flex flex-col">
+<header class="flex items-center p-4 border-b border-slate-200 dark:border-slate-800">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined block text-slate-600 dark:text-slate-400">arrow_back</span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold mr-10">Create Match</h1>
+</header>
+<main class="flex-1 px-6 py-4 flex flex-col overflow-y-auto pb-24">
+<div class="mb-6">
+<h2 class="text-xl font-bold mb-1">Match Details</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Configure the players for the match.</p>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl flex mb-8">
+<button class="flex-1 py-2 text-sm font-semibold rounded-lg shadow-sm bg-white dark:bg-slate-700 text-primary dark:text-white transition-all">Singles</button>
+<button class="flex-1 py-2 text-sm font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-all">Doubles</button>
+</div>
+<div class="mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold uppercase text-slate-500 tracking-wider">Home Player / Team 1</span>
+<span class="text-xs font-medium text-primary cursor-pointer hover:underline">Manage Roster</span>
+</div>
+<div class="space-y-3">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+<select class="block w-full pl-10 pr-10 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-primary focus:border-primary appearance-none text-slate-900 dark:text-white transition-shadow shadow-sm">
+<option disabled="" selected="" value="">Select Player A</option>
+<option>Alex Morgan</option>
+<option>Sarah Jones</option>
+<option>Mike Ross</option>
+<option>Emily Chen</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center -my-3 relative z-10">
+<span class="bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-xs font-bold px-2 py-1 rounded-full border-2 border-white dark:border-slate-900">VS</span>
+</div>
+<div class="mb-8 mt-2">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold uppercase text-slate-500 tracking-wider">Away Player / Team 2</span>
+</div>
+<div class="space-y-3">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+<select class="block w-full pl-10 pr-10 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-primary focus:border-primary appearance-none text-slate-900 dark:text-white transition-shadow shadow-sm">
+<option disabled="" selected="" value="">Select Player B</option>
+<option>David Kim</option>
+<option>Jessica Lee</option>
+<option>Tom Woods</option>
+<option>Paul King</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4 border-t border-slate-100 dark:border-slate-800 pt-6">
+<div>
+<label class="block text-sm font-bold text-slate-900 dark:text-slate-100 mb-2">Match Notes (Optional)</label>
+<textarea class="block w-full px-4 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder-slate-400 transition-shadow shadow-sm" placeholder="Add any specific instructions, requirements, or referee notes here..." rows="6"></textarea>
+</div>
+</div>
+</main>
+<footer class="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto">
+<button class="w-full py-3.5 px-4 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_circle</span> 
+            Create Match
+        </button>
+</footer>
+</div>
+
+</body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tournament Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e293b",
+                        "text-primary-light": "#0f172a",
+                        "text-primary-dark": "#f8fafc",
+                        "text-secondary-light": "#64748b",
+                        "text-secondary-dark": "#94a3b8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark antialiased selection:bg-primary/30">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-surface-light dark:bg-surface-dark border-x border-slate-200 dark:border-slate-800">
+<header class="sticky top-0 z-20 bg-surface-light dark:bg-surface-dark/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between px-4 py-3">
+<div class="flex items-center gap-3">
+
+<h1 class="text-xl font-bold tracking-tight">Tournaments</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="relative flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary-light dark:text-text-primary-dark">notifications</span>
+<span class="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+</div>
+</div>
+<div class="px-4 pb-2">
+<div class="relative group">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-xl border-none bg-slate-100 dark:bg-slate-800 py-2.5 pl-10 pr-3 text-sm text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light dark:placeholder-text-secondary-dark focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Search tournaments, players..." type="text"/>
+</div>
+</div>
+<div class="flex gap-2 px-4 py-3 overflow-x-auto no-scrollbar mask-linear-fade">
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-primary/30">
+                    All
+                </button>
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-1.5 text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Ongoing
+                </button>
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-1.5 text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Draft
+                </button>
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-1.5 text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Finalized
+                </button>
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-1.5 text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Singles
+                </button>
+<button class="flex shrink-0 items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-1.5 text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Doubles
+                </button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto no-scrollbar pb-24 bg-background-light dark:bg-background-dark">
+<div class="flex flex-col gap-1 p-4">
+<div class="flex items-center justify-between mb-2 mt-2">
+<h2 class="text-sm font-semibold uppercase tracking-wider text-text-secondary-light dark:text-text-secondary-dark">Recent Tournaments</h2>
+<button class="text-xs font-medium text-primary hover:text-primary/80">View Calendar</button>
+</div>
+<div class="group relative flex flex-col gap-3 rounded-xl bg-surface-light dark:bg-surface-dark p-4 shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">sports_tennis</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-text-primary-light dark:text-text-primary-dark">Summer Open 2024</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Aug 15 - Aug 20 • Singles</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400 ring-1 ring-inset ring-emerald-600/20">
+                            Ongoing
+                        </span>
+</div>
+<div class="flex items-center gap-4 border-t border-slate-100 dark:border-slate-700 pt-3">
+<div class="flex -space-x-2 overflow-hidden">
+<img alt="Male avatar" class="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-surface-dark object-cover" data-alt="Player avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0IC5CSF0zgmDiF4VJldH9o8AKrLvg78qTNgDp888-ByIE_FXD7MvuG5orgzosBYZPUA9NH23xllUo_cjhJckXHCqyHWfywePkeSHDH8fAhS_EScU-S19bllGVM2OSzfJE6wkpypeKTqpKK-Owt0iNgp-nEQPzM8HRe_K_dJAAEifzeAyd48aVtwJJ74y6J-1ce4iN8PQ3hEIjiY3UwUl4-RVXU1Adcl6K8MY9lesOKovqr_NFyIX4rYTCLaCNX_TKPf_2s_EW1lk"/>
+<img alt="Female avatar" class="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-surface-dark object-cover" data-alt="Player avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDAqHgOxG9FkjIpMf7l67GMkZQiOlyF_eFgG5kecuRrDbatgOXj3KXQ4PNlYtV8PZepKsjdpSeb0Nm8bMFoB_rLI6Z8mekal88Dk2NOCasQIte2RM2TFyU84I2w7Lv38BJPYjIIOZD5De8aOE_LWiB-mzuNXAA7M-ycIKK0QFnQ_J3EK_A356HKqXRzSrfhWyLm2uf0kF2y1Q6GjBp-zK4oX7qVHE6eMiq1PTdp1M5uzH8egrXd2YkSPSJv4-zRmKPSid1yuZ26nI"/>
+<img alt="Male avatar" class="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-surface-dark object-cover" data-alt="Player avatar 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHl-qHeLjnlB2f2SzAHLdJYLpissqN4NWSb7O49jjZCNTMVZ0Nxq52HaQG_F0s-iN2rRp8KWoFFlZtedhIrrab9e3JcO4oVAG5I1CwdVXb0w66n-g7jHtxa4RVb3Piwl1VH_deuLXpS13XpacKRMOtxbKGZMBfkRb0qNsrptYkyPMMxqTZsGEtLIXeCgXmEhSdfgCdE6iV41UaSlq3OgXiaiCWOLmkafjkOXBjhAGa7w02XmpFR1PkQWH-ZS3QeyKgIOXcsl52wg4"/>
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 ring-2 ring-white dark:ring-surface-dark">
+<span class="text-[10px] font-medium text-text-secondary-light dark:text-text-secondary-dark">+32</span>
+</div>
+</div>
+<div class="flex flex-1 items-center justify-end gap-1 text-xs text-text-secondary-light dark:text-text-secondary-dark">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Central Court, NY</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 rounded-xl bg-surface-light dark:bg-surface-dark p-4 shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all mt-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
+<span class="material-symbols-outlined">edit_document</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-text-primary-light dark:text-text-primary-dark">Fall Junior Championship</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Sep 01 - Sep 05 • Doubles</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/20 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-600/20">
+                            Draft
+                        </span>
+</div>
+<div class="flex items-center gap-4 border-t border-slate-100 dark:border-slate-700 pt-3">
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark flex-1">Registration opens in 2 days</p>
+<button class="text-xs font-semibold text-primary hover:underline">Complete Setup</button>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 rounded-xl bg-surface-light dark:bg-surface-dark p-4 shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all mt-3 opacity-90">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined">emoji_events</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-text-primary-light dark:text-text-primary-dark">Spring Masters 2024</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Apr 10 - Apr 15 • Singles</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-slate-50 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-400 ring-1 ring-inset ring-slate-500/10">
+                            Finalized
+                        </span>
+</div>
+<div class="flex items-center gap-4 border-t border-slate-100 dark:border-slate-700 pt-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-500 text-[18px]">trophy</span>
+<span class="text-xs font-medium text-text-primary-light dark:text-text-primary-dark">Winner: R. Nadal</span>
+</div>
+<div class="flex flex-1 justify-end">
+<button class="text-xs font-medium text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary">View Results</button>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 rounded-xl bg-surface-light dark:bg-surface-dark p-4 shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all mt-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-text-primary-light dark:text-text-primary-dark">Regional Qualifiers</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Aug 22 - Aug 25 • Doubles</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400 ring-1 ring-inset ring-emerald-600/20">
+                            Ongoing
+                        </span>
+</div>
+<div class="flex items-center gap-4 border-t border-slate-100 dark:border-slate-700 pt-3">
+<div class="flex flex-1 items-center justify-between">
+<span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Round of 16</span>
+<span class="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">Live Scores</span>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 rounded-xl bg-surface-light dark:bg-surface-dark p-4 shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all mt-3 mb-6">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400">
+<span class="material-symbols-outlined">local_activity</span>
+</div>
+<div>
+<h3 class="text-base font-bold text-text-primary-light dark:text-text-primary-dark">Charity Exhibition</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Oct 05 • Singles</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/20 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-600/20">
+                            Draft
+                        </span>
+</div>
+<div class="flex items-center gap-4 border-t border-slate-100 dark:border-slate-700 pt-3">
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark flex-1">Waiting for approval</p>
+</div>
+</div>
+</div>
+</main>
+<div class="absolute bottom-20 right-4 z-10">
+<button class="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:bg-primary/90 hover:scale-105 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+</div>
+<nav class="fixed bottom-0 w-full max-w-md border-t border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark pb-safe">
+<div class="flex items-center justify-around px-2 py-3">
+<a class="group flex flex-1 flex-col items-center justify-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</a>
+<a class="active-icon group flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">trophy</span>
+<span class="text-[10px] font-medium">Tournaments</span>
+</a>
+<a class="group flex flex-1 flex-col items-center justify-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-[10px] font-medium">Players</span>
+</a>
+<a class="group flex flex-1 flex-col items-center justify-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</div>
+<div class="h-4 w-full bg-surface-light dark:bg-surface-dark"></div>
+</nav>
+</div>
+</body></html>

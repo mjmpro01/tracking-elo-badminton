@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "gold": "#F59E0B",
+              "silver": "#9CA3AF",
+              "bronze": "#B45309",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<title>Tournament Standings</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-md mx-auto bg-white dark:bg-slate-900 min-h-screen shadow-xl flex flex-col">
+<header class="flex items-center p-4 border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-white dark:bg-slate-900 z-20">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined block text-slate-600 dark:text-slate-400">arrow_back</span>
+</button>
+<div class="flex-1 text-center mr-10">
+<h1 class="text-lg font-bold">Summer Slam 2024</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Live Standings</p>
+</div>
+<button class="absolute right-4 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined block">share</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-950">
+<div class="px-4 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider items-center sticky top-0 z-10 shadow-sm">
+<div class="col-span-1 text-center">#</div>
+<div class="col-span-6">Participant</div>
+<div class="col-span-1 text-center">P</div>
+<div class="col-span-1 text-center">W</div>
+<div class="col-span-1 text-center">L</div>
+<div class="col-span-2 text-right">Pts</div>
+</div>
+<div class="flex-1 overflow-y-auto px-4 pb-20 pt-4 scrollbar-hide space-y-3">
+<div class="bg-gradient-to-r from-amber-50 to-white dark:from-amber-900/20 dark:to-slate-800 rounded-xl border border-amber-200 dark:border-amber-700/30 overflow-hidden shadow-sm relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-gold"></div>
+<div class="p-4 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 flex justify-center">
+<span class="material-symbols-outlined text-gold text-xl" style="font-variation-settings: 'FILL' 1">emoji_events</span>
+</div>
+<div class="col-span-6 flex items-center gap-3">
+<img alt="Alex M." class="w-10 h-10 rounded-full object-cover border-2 border-gold" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd-ssG3Go6GY-2FLMJzl3Y7pLH74FwV41QYwz8hlLo_ZNT7DRmW9ptoC-pqmBgP0Ol8gu3L3fxcdg5y8XmjmASLorSfKCZ7Ye4OQVCtr-eoJNVUnGWFoG2t8CCAT91Pwq06gIHrPzFnswrHrVmDxkf3tMLZv9lgRiAs7aLJ7xT2gT8L-rS5Do52R9DKLyVX_oqpxQCwcXXydmtSQwlUDR0YuylrapnyYeUUwaqIWv6GMbFBDc740Ojf-n-8LUgCdj7XHiQr_MylJo"/>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Alex Morgan</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Elo 1245</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">8</div>
+<div class="col-span-1 text-center text-sm font-bold text-green-600 dark:text-green-400">7</div>
+<div class="col-span-1 text-center text-sm text-red-500 dark:text-red-400">1</div>
+<div class="col-span-2 text-right text-base font-bold text-slate-900 dark:text-slate-100">21</div>
+</div>
+</div>
+<div class="bg-gradient-to-r from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-800 rounded-xl border border-slate-300 dark:border-slate-600 overflow-hidden shadow-sm relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-silver"></div>
+<div class="p-4 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 flex justify-center">
+<span class="material-symbols-outlined text-silver text-xl" style="font-variation-settings: 'FILL' 1">emoji_events</span>
+</div>
+<div class="col-span-6 flex items-center gap-3">
+<div class="flex -space-x-2">
+<img alt="David K." class="w-10 h-10 rounded-full object-cover border-2 border-silver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGWQ6qSj2XyltU15_9O0tYmpGscQbs98UHGrwCff7ADkmccuc3UL0HESsLzrByv2gdI09m3SVsRjO-4EaTSOe96LVLs8wkcghGpis2j6l663pKGfFTMji_M2IRPzWA0_Aq_4XUAUy6FXaxO4cuIRy1lYk3-hsjfYfCiyn0Rbnl7ZkxvaRll_I3SJf86pAAFlQ3sk3J21g-3pHNnPTukvfm4jVpPE8Rpu0U5CInFLJKha40quUId_9WzuAYNM42xqItHyVmWlwibGk"/>
+<div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center border-2 border-silver text-indigo-600 dark:text-indigo-400 font-bold text-xs">JL</div>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Kim / Lee</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Elo 2085</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">8</div>
+<div class="col-span-1 text-center text-sm font-bold text-green-600 dark:text-green-400">6</div>
+<div class="col-span-1 text-center text-sm text-red-500 dark:text-red-400">2</div>
+<div class="col-span-2 text-right text-base font-bold text-slate-900 dark:text-slate-100">18</div>
+</div>
+</div>
+<div class="bg-gradient-to-r from-orange-50 to-white dark:from-orange-900/20 dark:to-slate-800 rounded-xl border border-orange-200 dark:border-orange-800/50 overflow-hidden shadow-sm relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-bronze"></div>
+<div class="p-4 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 flex justify-center">
+<span class="material-symbols-outlined text-bronze text-xl" style="font-variation-settings: 'FILL' 1">emoji_events</span>
+</div>
+<div class="col-span-6 flex items-center gap-3">
+<img alt="Mike R." class="w-10 h-10 rounded-full object-cover border-2 border-bronze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQXIKwhLskw8LolJDk6EEHjG7YfPslC4QANYhglgfUuEKROFRYeBTXF2zgS0bbhGbtZF8pP-J35za8MiTUJjS6aLJhIch0bkLBcuO68Y66-oJNas80Yv3B35xofIfpucvMX53umzw4F99SxJcPVz_XjTQ7qVAzWtb1rkTjA21lwooaUWKKkxb2Gq_M2JttLGWeHlGtxiBI1_gfUjg9Snl4bqKzIlmwCO7ggmJRqSyuqOlMsphROG0waFyZ9QqX2kghoj77LVNViQE"/>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Mike Ross</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Elo 1195</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">8</div>
+<div class="col-span-1 text-center text-sm font-bold text-green-600 dark:text-green-400">5</div>
+<div class="col-span-1 text-center text-sm text-red-500 dark:text-red-400">3</div>
+<div class="col-span-2 text-right text-base font-bold text-slate-900 dark:text-slate-100">15</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="p-3 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 text-center font-bold text-slate-500 dark:text-slate-400">4</div>
+<div class="col-span-6 flex items-center gap-3">
+<img alt="Emily C." class="w-8 h-8 rounded-full object-cover border border-slate-100 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDojAm-AxilxnjTi3b0-04I7oyeQoHlNdReEbzyJlW3W9dDdggnuPZrRV5_FNuIOuXKufTSbD9Vv_ET81VL3_0imKlX9ZqYYYDmjn9AZOJRSg5YMfPjfGR18kZp5z-D8A5ZS03xb0iZwjYX6KDYscpMTtVsuOE_bsjIPq0pQN0xl5UStXGx7QL_ljbIX0IKaM-10N-rPV8EHOfUuHCTU_5ddfzgNDKytl3j4Tnh4fB5kAIZxCAD4rDmITDGYaV9IyTIlLli4SclEDE"/>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Emily Chen</p>
+<p class="text-xs text-slate-400 dark:text-slate-500">Elo 1195</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">8</div>
+<div class="col-span-1 text-center text-sm font-bold text-slate-600 dark:text-slate-300">4</div>
+<div class="col-span-1 text-center text-sm text-slate-500 dark:text-slate-400">4</div>
+<div class="col-span-2 text-right text-sm font-bold text-slate-900 dark:text-slate-100">12</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="p-3 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 text-center font-bold text-slate-500 dark:text-slate-400">5</div>
+<div class="col-span-6 flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-rose-600 dark:text-rose-400 font-bold text-[10px]">TW</div>
+<div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-blue-600 dark:text-blue-400 font-bold text-[10px]">PK</div>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Woods / King</p>
+<p class="text-xs text-slate-400 dark:text-slate-500">Elo 1950</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">7</div>
+<div class="col-span-1 text-center text-sm font-bold text-slate-600 dark:text-slate-300">4</div>
+<div class="col-span-1 text-center text-sm text-slate-500 dark:text-slate-400">3</div>
+<div class="col-span-2 text-right text-sm font-bold text-slate-900 dark:text-slate-100">12</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="p-3 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 text-center font-bold text-slate-500 dark:text-slate-400">6</div>
+<div class="col-span-6 flex items-center gap-3">
+<img alt="Sarah J." class="w-8 h-8 rounded-full object-cover border border-slate-100 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5y_DFl8SdRoTuwOEZxdI4MbKEhBFCVNKBWUoMLES9Hqx1u21JoW7YtPHrFmy-e0Y6dQ6ZixOTCknfSJshkwc12Hpg9blW1c3yauBZFgcdb6INK15wWt623HXJxrMxIUSzbh-z-_yuKQHCwy4_XZ2g8hJq4p1Nm0-Z4WnvVXQ4GVY475NljZqI8tOK6G-yOiMX9H8U4xUKvEu9b9TevBwcD9Zlvt-cKg12nzzIINb_P3xjQLGIPwAakZgYq-GYW0vtRQNq_N-j5RA"/>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Sarah Jones</p>
+<p class="text-xs text-slate-400 dark:text-slate-500">Elo 1150</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">8</div>
+<div class="col-span-1 text-center text-sm font-bold text-slate-600 dark:text-slate-300">3</div>
+<div class="col-span-1 text-center text-sm text-slate-500 dark:text-slate-400">5</div>
+<div class="col-span-2 text-right text-sm font-bold text-slate-900 dark:text-slate-100">9</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="p-3 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 text-center font-bold text-slate-500 dark:text-slate-400">7</div>
+<div class="col-span-6 flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">JB</div>
+<div class="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-purple-600 dark:text-purple-400 font-bold text-[10px]">AS</div>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Brown / Smith</p>
+<p class="text-xs text-slate-400 dark:text-slate-500">Elo 1820</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">6</div>
+<div class="col-span-1 text-center text-sm font-bold text-slate-600 dark:text-slate-300">2</div>
+<div class="col-span-1 text-center text-sm text-slate-500 dark:text-slate-400">4</div>
+<div class="col-span-2 text-right text-sm font-bold text-slate-900 dark:text-slate-100">6</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+<div class="p-3 grid grid-cols-12 gap-2 items-center">
+<div class="col-span-1 text-center font-bold text-slate-500 dark:text-slate-400">8</div>
+<div class="col-span-6 flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-orange-600 dark:text-orange-400 font-bold text-[10px]">LR</div>
+<div class="w-8 h-8 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center border border-white dark:border-slate-800 text-cyan-600 dark:text-cyan-400 font-bold text-[10px]">MP</div>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Roberts / P.</p>
+<p class="text-xs text-slate-400 dark:text-slate-500">Elo 1500</p>
+</div>
+</div>
+<div class="col-span-1 text-center text-sm text-slate-600 dark:text-slate-300">6</div>
+<div class="col-span-1 text-center text-sm font-bold text-slate-600 dark:text-slate-300">1</div>
+<div class="col-span-1 text-center text-sm text-slate-500 dark:text-slate-400">5</div>
+<div class="col-span-2 text-right text-sm font-bold text-slate-900 dark:text-slate-100">3</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

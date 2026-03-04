@@ -1,0 +1,29 @@
+---
+alwaysApply: false
+description: Quy tắc Elo cho badminton-tracking-elo (rating khởi tạo và công thức tính theo k_factor)
+---
+
+### Quy tắc Elo cho hệ thống badminton-tracking-elo
+
+- **Rating khởi tạo**
+  - Mọi `player` mới tạo (dù là thành viên chính thức đều bắt đầu với **Elo = 1000**.
+  - Nếu bảng `players` có cột `initial_rating`, mặc định là `1000`. Nếu không, logic khởi tạo ở backend/RPC luôn set 1000 cho rating đầu tiên trong `elo_history`.
+
+- **Công thức Elo quốc tế (chuẩn)**
+  - Sử dụng công thức Elo cổ điển với hệ số `K` (k_factor) do **tournament** quy định:
+    - $E_A = \\frac{1}{1 + 10^{(R_B - R_A)/400}}$
+    - $R'_A = R_A + K \\cdot (S_A - E_A)$
+    - Trong đó:
+      - $R_A, R_B$: rating hiện tại của A, B.
+      - $E_A$: xác suất thắng kỳ vọng của A.
+      - $S_A$: kết quả thực ($1$ thắng, $0.5$ hoà, $0$ thua).
+      - $K$: `k_factor` lấy từ bảng `tournaments` (mỗi giải có thể cấu hình K khác nhau).
+  - Với doubles:
+    - Rating đội = **trung bình** Elo 2 player trong đội.
+    - Elo delta tính theo đội, sau đó chia đều lại cho từng player trong team.
+
+- **Liên kết data model (tham chiếu)**
+  - `k_factor` được lưu trên bảng `tournaments` và được RPC `update_match_score` / `finalize_tournament_rankings` sử dụng khi tính Elo.
+  - Mọi thay đổi Elo được ghi vào `elo_history` với:
+    - `rating_before`, `rating_after`, `delta`, `match_id`, `tournament_id`.
+

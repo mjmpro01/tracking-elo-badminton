@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tournament Creator - Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-md mx-auto bg-white dark:bg-slate-900 min-h-screen flex flex-col shadow-xl">
+<header class="flex items-center p-4 border-b border-slate-200 dark:border-slate-800">
+<button class="text-slate-900 dark:text-slate-100 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold flex-1 ml-2">Create Tournament</h1>
+</header>
+<div class="p-4 bg-white dark:bg-slate-900 flex gap-2">
+<div class="flex-1 h-1.5 bg-primary rounded-full"></div>
+<div class="flex-1 h-1.5 bg-primary rounded-full"></div>
+<div class="flex-1 h-1.5 bg-primary rounded-full"></div>
+<div class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+</div>
+<div class="px-4 py-2">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tournament Type</p>
+<div class="flex h-11 w-full items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm has-[:checked]:text-primary text-slate-500 text-sm font-semibold leading-normal transition-all">
+<span class="truncate">Singles</span>
+<input checked="" class="hidden" name="tournament-type" type="radio" value="Singles"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm has-[:checked]:text-primary text-slate-500 text-sm font-semibold leading-normal transition-all">
+<span class="truncate">Doubles</span>
+<input class="hidden" name="tournament-type" type="radio" value="Doubles"/>
+</label>
+</div>
+</div>
+<div class="px-4 pt-6 pb-2">
+<h2 class="text-xl font-bold">Player Seeding</h2>
+<p class="text-slate-500 text-sm mt-1">Review individual player seeds for this singles event.</p>
+</div>
+<div class="flex-1 overflow-y-auto px-4 space-y-3 pb-24">
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+<div class="text-primary font-bold w-8 text-center">#1</div>
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile portrait of a professional male player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0BKrwD1pKdCbX1401k2XzionE3hBIUy2KkW3uB_mYGDJTPVk_H0Q45K6Lc7glQEIzxeWQasapxKFuzNGSjDO1CcRNeUdzeyzBqwkjBd2qWTjA5VWYAc6M63Pn-2zYA2hPNFr9XLoZddix5YdmkqM1UTIuLkSq1g6d10jKl_LCXZlguPI1CQEQnFnhgFBoNIZ39wAqZyl23ThYeyKnX-cO1VcE4apJ6aoTR1limdiZAb7kC0D4p505REDox0exlLhxh8KnIJkGgqc"/>
+<div class="flex-1">
+<h4 class="font-semibold text-sm">Alex Thompson</h4>
+<p class="text-xs text-slate-500">2140 Elo</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+<div class="text-primary font-bold w-8 text-center">#2</div>
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile portrait of a professional female player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5zNijzNQfiEl37lFbfkNUYbTO2dZnm19M0TSGwR9xF1HnURZwMrxKB2-REnMg0s_V952NgH5B20_V4tur1UzRBO2_aWDYKc4aeVkMySNdJbi-tqCYW6g8L21TxAgF3Z3KdUlgbb0lpd3z-1XCBMDR6XVESIAH-P7iV--om1lKNYUWb2zqtPi1IMeDg7wS5SI5B3ARpkKTUcvjBpd_teBWJaIY4zu7_-hN-JReJ9RDcIbeDfSx6ig1EfkD4AtFbJrJaz3ew49MhrA"/>
+<div class="flex-1">
+<h4 class="font-semibold text-sm">Sarah Chen</h4>
+<p class="text-xs text-slate-500">2095 Elo</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+<div class="text-primary font-bold w-8 text-center">#3</div>
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile portrait of a competitive male player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhh23fZgWYfjCMkATS5_ZRrAO_Zv3JTeGW8mIYg4XYaPHPMLWNb2DZyBNhtz6yDLVL1ZZXtpNOs8swCn7x8NG94tNk-K2RQSzi5EVO4dgV-AT52lhhmqdW42e9Y4CZF3q6y9oJ-b3iE36sJ6r3Www1vG7b4LPAQlNbcwGdeqyxivCEGRZSqe4Czjrt7xg3y9vujQHmqIRzbiLNWs6gcDW4tiqhQkN_kKW2UGuRaLauwVADpB8LJn92RX-Bngti68MutGFjfqaPauM"/>
+<div class="flex-1">
+<h4 class="font-semibold text-sm">Jordan Miller</h4>
+<p class="text-xs text-slate-500">1980 Elo</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+<div class="text-primary font-bold w-8 text-center">#4</div>
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile portrait of a competitive female player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnYdUz3eSWuFPVg6xMit5YxQB5WtwrrvcLZNv0XzZTdrpghg77ldv49cuazY5aqhWKtJ0bxpajsFqolg_u4NJcmcEHjTZ5KmEXNBypf4KLVqRukuK4YWVUnQRITOFvd8RccyrznSee0sFNJ2jNqdTTU3y23NVJSbBgTUSVIPCNVxB1f5X43VFzYyVx6Z5noBiRgJw0sh06DFS2xQK9Y-ogZ5RIy6pCYsAoejJepQOtmaDRto5NLYdkjW5mk6mVDmWDEKWJ6JJND5E"/>
+<div class="flex-1">
+<h4 class="font-semibold text-sm">Maria Garcia</h4>
+<p class="text-xs text-slate-500">1850 Elo</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 opacity-80">
+<div class="text-primary font-bold w-8 text-center">#5</div>
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Profile portrait of a young male player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoGi1KQfXzMFaI38yACumCD35lVHFAEzpmgCcYZbUmyL2OInvEZBZIAwEqjP4S-gU552FLWC479RH-zJ-u9CDpdYGBM2Mq0eeC59LkvlEF56Rp782rt6goy4zl4peO-jd5M_b5-uUH3NNOLNmt5W8I0CafKAd-t-NJdYbCe5RYb4DkvqmdP5LXFAftVlTtVnsR0NdTgXm8yTmHSEnCi1QKA8EmsxUScmPkwUwrKFh9bSdYUCB3MJztlbbD2yepySHyreid926gRao"/>
+<div class="flex-1">
+<h4 class="font-semibold text-sm">David Wilson</h4>
+<p class="text-xs text-slate-500">1720 Elo</p>
+</div>
+<button class="text-slate-400">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+</div>
+<div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 flex gap-3">
+<button class="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            Back
+        </button>
+<button class="flex-[2] px-4 py-3 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors">Continue</button>
+</div>
+</div>
+
+</body></html>
