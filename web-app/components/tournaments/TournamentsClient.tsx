@@ -62,8 +62,8 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
     .from("tournaments")
     .select("id, name, cover_image_url, k_factor, end_date, start_date, created_at")
     .in("status", ["finished", "locked"])
-    .order("end_date", { ascending: false, nullsLast: true })
-    .order("start_date", { ascending: false, nullsLast: true })
+    .order("end_date", { ascending: false, nullsFirst: false })
+    .order("start_date", { ascending: false, nullsFirst: false })
     .order("created_at", { ascending: false });
 
   if (tournamentsError) throw tournamentsError;

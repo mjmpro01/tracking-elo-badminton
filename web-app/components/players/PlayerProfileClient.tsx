@@ -342,8 +342,6 @@ async function fetchTopPartners(playerId: string): Promise<TopPartner[]> {
   matchesB?.forEach((m: any) => matchesMap.set(m.id, m));
   const matches = Array.from(matchesMap.values());
 
-  if (matchesError) throw matchesError;
-
   // 5. Tính thống kê cho mỗi partner
   const partnerStats = new Map<
     string,
