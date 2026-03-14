@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Teams - Step 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex justify-center">
+<div class="relative flex h-full min-h-screen w-full max-w-md flex-col overflow-hidden bg-background-light dark:bg-background-dark shadow-2xl">
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-slate-900 dark:text-slate-100 flex size-12 shrink-0 items-center justify-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-12">Create Tournament</h2>
+</div>
+<div class="flex w-full flex-row items-center justify-center gap-3 py-4 px-6">
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+</div>
+<div class="flex-1 overflow-y-auto pb-24 no-scrollbar">
+<div class="px-6 pt-4 mb-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 block">Tournament Type</label>
+<div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl gap-1">
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200" id="singles-toggle">
+                        Singles
+                    </button>
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-700 text-primary shadow-sm" id="doubles-toggle">
+                        Doubles
+                    </button>
+</div>
+</div>
+<div class="px-6 pt-2 pb-6">
+<h2 class="text-slate-900 dark:text-slate-100 tracking-tight text-[28px] font-bold leading-tight pb-2">Participant Setup</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Confirm player entries or configure doubles pairings for the event.</p>
+</div>
+<div class="contents" id="doubles-section"></div>
+<div class="hidden px-6" id="singles-section">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-4">Confirmed Players (16)</h3>
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img alt="Player" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdUSPovTfC7tSKuqsgO8JHL6SPx8a_tCEXjLcW8sLQ-2ZtGQVsY6ZeuJi1Ws0BZemo3-Dm--tq2DnZCR6kG1uw9VCdDx5JapqcNe_EVLuq9ehQ6YjdrSKnFovupEdlvGhbifu7klDad6FWUYeVfcGe0VgEsdWCdEan07VOA-eejgcpm2t4amzM__1Pitbn-XD0ZdcrD9hL7pdYhkxoV_gCdK-uzZHj0ZFqMacaPH1Lk63KAYJqEbjf80sL8mdu7Yklz1M4zhmQMvg"/>
+</div>
+<span class="text-sm font-medium truncate">Marcus J.</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img alt="Player" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9HCL-4KVQ_eKR7TYilwKC9rdQIcvIAGET-kBKHCPRMevk7Hmm7G6czMurGF_z65iaxcVGCX056krUUT6bvxXz1teWx5SrVHFrvheNLzMTVs9-7j_r3i8bdWqh4aFkv0sqrwxju-rkhjqfAaf2Ccyxc4Z0TELrRtVsL-d87sJ1TGCJADIQigspOWYyCX762oeOm4I0ZeF3hcVqZWGWEqSlC7qt508m_0KWqyfokQnzOiqdGmeEpNfhFDUQhSkG8bXpQbDLyMpj4-M"/>
+</div>
+<span class="text-sm font-medium truncate">Sarah W.</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img alt="Player" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD61I7h6wUwoADdjUaeROGTvTd3otO4GmjxDOUmXnWeE5asguGJvgVq1bSj-Yer3iboYPXhOXw03BLwPHcd2sfALF1PF7ondeSt6hkCSE59r5WW2U_PXofNlNpJRZKweK9gjsk5jBKSur9IG31x_eAbHsYWDVF6kg5Pmx6iIPb4keFjdgYysB5bi9ntt-R9Wi5pnpmvogxjPPGDPeptnXvSoaDnWz6Zd4_xqmOa3SkKG2_fiBknx1NYFzksDLeHLZL97GT5dfb11nw"/>
+</div>
+<span class="text-sm font-medium truncate">David C.</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img alt="Player" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnU789gvZ8Q3xYsresA2YZDiapTqOgXFWYVEg8Uk8SkTfco7NC4sg5FkHdzsDPF6zIrs9P9Pm4IvE2hdBvRb2MfVW9nqOIzxz8-7WUwnbp_hEcg7QmYPJGV29nEYBu8zZsm6gPbXH_JnnDxtlrvy0eennTcfnhdm2nH9nzbmQjLFymiltU1ERWB2vHGjU_1v2746Xmon1G8vKtvr-q3CG4bUjhHOQBHHjR1F3CbosATuSNTQlcLGcFuAmq7DxwWs7WOs1jiwN_0N8"/>
+</div>
+<span class="text-sm font-medium truncate">Elena R.</span>
+</div>
+</div>
+<p class="text-center text-sm text-slate-500 dark:text-slate-400 italic mb-8">Players are already seeded based on their individual Elo ratings from Step 2.</p>
+</div>
+<div class="px-6 mb-8">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-600 active:scale-95 transition-all gap-2 font-bold text-sm tracking-wide">
+<span class="material-symbols-outlined text-[20px]">auto_fix_high</span>
+<span>Auto-generate Balanced Teams</span>
+</button>
+<p class="text-center text-xs text-slate-400 mt-2">Uses combined Elo ratings to create fair matchups</p>
+</div>
+<div class="flex justify-between items-center px-6 mb-4">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Teams Created (4/8)</h3>
+<button class="text-primary text-sm font-semibold hover:underline">Add Manually</button>
+</div>
+<div class="mx-6 mb-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">Seed #1</div>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="text-xs font-medium">Combined Elo:</span>
+<span class="text-slate-900 dark:text-white font-bold text-sm">2450</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden relative">
+<img alt="Player 1" class="w-full h-full object-cover" data-alt="Portrait of a male tennis player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdUSPovTfC7tSKuqsgO8JHL6SPx8a_tCEXjLcW8sLQ-2ZtGQVsY6ZeuJi1Ws0BZemo3-Dm--tq2DnZCR6kG1uw9VCdDx5JapqcNe_EVLuq9ehQ6YjdrSKnFovupEdlvGhbifu7klDad6FWUYeVfcGe0VgEsdWCdEan07VOA-eejgcpm2t4amzM__1Pitbn-XD0ZdcrD9hL7pdYhkxoV_gCdK-uzZHj0ZFqMacaPH1Lk63KAYJqEbjf80sL8mdu7Yklz1M4zhmQMvg"/>
+</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Marcus Johnson</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1250</p>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">remove_circle_outline</span>
+</button>
+</div>
+<div class="h-px bg-slate-100 dark:bg-slate-700 w-full ml-12"></div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden relative">
+<img alt="Player 2" class="w-full h-full object-cover" data-alt="Portrait of a female tennis player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9HCL-4KVQ_eKR7TYilwKC9rdQIcvIAGET-kBKHCPRMevk7Hmm7G6czMurGF_z65iaxcVGCX056krUUT6bvxXz1teWx5SrVHFrvheNLzMTVs9-7j_r3i8bdWqh4aFkv0sqrwxju-rkhjqfAaf2Ccyxc4Z0TELrRtVsL-d87sJ1TGCJADIQigspOWYyCX762oeOm4I0ZeF3hcVqZWGWEqSlC7qt508m_0KWqyfokQnzOiqdGmeEpNfhFDUQhSkG8bXpQbDLyMpj4-M"/>
+</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Sarah Williams</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1200</p>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">remove_circle_outline</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mx-6 mb-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">Seed #2</div>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="text-xs font-medium">Combined Elo:</span>
+<span class="text-slate-900 dark:text-white font-bold text-sm">2380</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden relative">
+<img alt="Player 3" class="w-full h-full object-cover" data-alt="Portrait of a male tennis player smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD61I7h6wUwoADdjUaeROGTvTd3otO4GmjxDOUmXnWeE5asguGJvgVq1bSj-Yer3iboYPXhOXw03BLwPHcd2sfALF1PF7ondeSt6hkCSE59r5WW2U_PXofNlNpJRZKweK9gjsk5jBKSur9IG31x_eAbHsYWDVF6kg5Pmx6iIPb4keFjdgYysB5bi9ntt-R9Wi5pnpmvogxjPPGDPeptnXvSoaDnWz6Zd4_xqmOa3SkKG2_fiBknx1NYFzksDLeHLZL97GT5dfb11nw"/>
+</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-semibold text-sm">David Chen</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1190</p>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">remove_circle_outline</span>
+</button>
+</div>
+<div class="h-px bg-slate-100 dark:bg-slate-700 w-full ml-12"></div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden relative">
+<img alt="Player 4" class="w-full h-full object-cover" data-alt="Portrait of a female tennis player looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnU789gvZ8Q3xYsresA2YZDiapTqOgXFWYVEg8Uk8SkTfco7NC4sg5FkHdzsDPF6zIrs9P9Pm4IvE2hdBvRb2MfVW9nqOIzxz8-7WUwnbp_hEcg7QmYPJGV29nEYBu8zZsm6gPbXH_JnnDxtlrvy0eennTcfnhdm2nH9nzbmQjLFymiltU1ERWB2vHGjU_1v2746Xmon1G8vKtvr-q3CG4bUjhHOQBHHjR1F3CbosATuSNTQlcLGcFuAmq7DxwWs7WOs1jiwN_0N8"/>
+</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Elena Rodriguez</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1190</p>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">remove_circle_outline</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mx-6 mt-8">
+<h3 class="text-slate-900 dark:text-slate-100 text-sm font-bold uppercase tracking-wider mb-3 text-slate-500 dark:text-slate-400">Unassigned Players (8)</h3>
+<div class="bg-white dark:bg-slate-800 rounded-xl p-2 border border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg cursor-pointer group">
+<div class="size-8 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 flex items-center justify-center font-bold text-xs">
+                            JD
+                        </div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-medium text-sm group-hover:text-primary transition-colors">John Doe</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1100</p>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-600 text-slate-400 hover:bg-primary hover:text-white hover:border-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<div class="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg cursor-pointer group">
+<div class="size-8 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 flex items-center justify-center font-bold text-xs">
+                            MK
+                        </div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-slate-100 font-medium text-sm group-hover:text-primary transition-colors">Mike Kowalski</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Elo 1050</p>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-600 text-slate-400 hover:bg-primary hover:text-white hover:border-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 w-full bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-4 pb-8 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+<div class="flex gap-3">
+<button class="flex-1 py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Back</button>
+<button class="flex-[2] py-3 px-4 rounded-xl bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-lg shadow-primary/25">
+                    Continue
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -36,6 +36,36 @@ begin
 end;
 $$;
 
+-- RPC: set Elo khởi tạo cho player mới (dùng cho Quick Add Player)
+create or replace function public.set_initial_rating(
+  p_player_id uuid,
+  p_rating numeric
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into elo_history(
+    player_id,
+    tournament_id,
+    rating_before,
+    rating_after,
+    delta,
+    created_at
+  )
+  values (
+    p_player_id,
+    null,
+    p_rating,
+    p_rating,
+    0,
+    now()
+  );
+end;
+$$;
+
 
 -- RPC: cập nhật tỉ số trận (KHÔNG tính Elo – Elo chỉ tính khi finalize tournament)
 create or replace function public.update_match_score(
@@ -101,56 +131,122 @@ $$;
 
 
 -- RPC: finalize thứ hạng giải + (tuỳ chọn) Elo bonus theo vị trí
-create or replace function public.finalize_tournament_rankings(
-  p_tournament_id uuid,
-  p_ordered_entry_ids uuid[]
+-- RPC: áp dụng Elo theo xếp hạng cuối cùng (top 3 cộng, các vị trí còn lại trừ)
+-- Công thức:
+--  - Dựa trên bảng tournament_standings (đã được lưu bởi client)
+--  - Dùng k_factor của tournament
+--  - Tính weight cho từng entry:
+--      rank_score = (N - position + 1)
+--      rank_score_weighted = rank_score * (1 + points / maxPoints)
+--  - Top 3:
+--      gain_ratio = weight / sum(weight_top3)
+--      delta = + round(k_factor * gain_ratio)
+--  - Các vị trí còn lại:
+--      loss_ratio = weight / sum(weight_rest)
+--      delta = - round(k_factor * LOSS_SCALE * loss_ratio)
+--      (LOSS_SCALE = 0.5 để phạt nhẹ hơn)
+--  - Với doubles: delta chia đều cho các player trong team.
+create or replace function public.apply_final_rank_elo(
+  p_tournament_id uuid
 )
 returns void
 language plpgsql
+security definer
+set search_path = public
 as $$
 declare
-  v_idx             int;
-  v_entry_id        uuid;
-  v_bonus_delta     numeric;
-  v_players         uuid[];
-  v_player_id       uuid;
-  v_player_rating   numeric;
-  v_team_size       int;
-  v_tournament      tournaments%rowtype;
-begin
-  -- 1. Cập nhật position trong standings
-  v_idx := 1;
-  foreach v_entry_id in array p_ordered_entry_ids loop
-    update tournament_standings
-    set position = v_idx
-    where tournament_id = p_tournament_id
-      and entry_id = v_entry_id;
-    v_idx := v_idx + 1;
-  end loop;
+  v_k_factor          numeric := 32;
+  v_n_entries         int;
+  v_max_points        numeric := 0;
+  v_sum_win_weight    numeric := 0;
+  v_sum_lose_weight   numeric := 0;
+  -- v_loss_scale: hệ số phạt cho nhóm xếp hạng thấp.
+  -- Rule cũ: thua bị trừ nhẹ hơn (50% so với tổng K).
+  v_loss_scale        numeric := 0.5;
 
-  select *
-  into v_tournament
+  v_entry_id          uuid;
+  v_position          int;
+  v_points            numeric;
+  v_weight            numeric;
+  v_delta             numeric;
+
+  v_players           uuid[];
+  v_player_id         uuid;
+  v_player_rating     numeric;
+  v_team_size         int;
+begin
+  -- Lấy k_factor từ tournaments
+  select coalesce(k_factor::numeric, 32)
+  into v_k_factor
   from tournaments
   where id = p_tournament_id;
 
-  -- 2. Elo bonus dựa trên bảng cấu hình (tuỳ chọn)
-  -- Bảng gợi ý:
-  -- tournament_rank_bonus(tournament_id uuid, position_from int, position_to int, bonus_delta numeric)
-  for v_idx in 1..array_length(p_ordered_entry_ids, 1) loop
-    v_entry_id := p_ordered_entry_ids[v_idx];
+  -- Nếu chưa có standings thì thoát
+  if not exists (
+    select 1
+    from tournament_standings
+    where tournament_id = p_tournament_id
+  ) then
+    return;
+  end if;
 
-    select trb.bonus_delta
-    into v_bonus_delta
-    from tournament_rank_bonus trb
-    where trb.tournament_id = p_tournament_id
-      and v_idx between trb.position_from and trb.position_to
-    limit 1;
+  -- Tạo bảng tạm cho standings của giải
+  create temporary table tmp_final_standings on commit drop as
+  select
+    position,
+    entry_id,
+    points::numeric as points,
+    0::numeric      as weight
+  from tournament_standings
+  where tournament_id = p_tournament_id
+  order by position;
 
-    if v_bonus_delta is null then
+  select count(*), coalesce(max(points), 0)
+  into v_n_entries, v_max_points
+  from tmp_final_standings;
+
+  if v_max_points <= 0 then
+    v_max_points := 1;
+  end if;
+
+  -- Tính weight cho từng entry
+  -- Lưu ý: Supabase bật extension "safeupdate" nên UPDATE phải có mệnh đề WHERE
+  update tmp_final_standings
+  set weight = (v_n_entries - position + 1) * (1 + (points / v_max_points))
+  where true;
+
+  -- Tổng weight cho top 3 và phần còn lại
+  select coalesce(sum(weight), 0)
+  into v_sum_win_weight
+  from tmp_final_standings
+  where position <= 3;
+
+  select coalesce(sum(weight), 0)
+  into v_sum_lose_weight
+  from tmp_final_standings
+  where position > 3;
+
+  -- Duyệt từng entry để tính delta Elo
+  for v_position, v_entry_id, v_points, v_weight in
+    select position, entry_id, points, weight
+    from tmp_final_standings
+    order by position
+  loop
+    v_delta := 0;
+
+    if v_position <= 3 and v_sum_win_weight > 0 then
+      -- Top 3 được cộng Elo
+      v_delta := round(v_k_factor * (v_weight / v_sum_win_weight));
+    elsif v_position > 3 and v_sum_lose_weight > 0 then
+      -- Các hạng còn lại bị trừ Elo (nhẹ hơn)
+      v_delta := - round(v_k_factor * v_loss_scale * (v_weight / v_sum_lose_weight));
+    end if;
+
+    if v_delta = 0 then
       continue;
     end if;
 
-    -- Lấy players cho entry này (singles/doubles giống như trong update_match_score)
+    -- Lấy players cho entry này (singles hoặc doubles)
     select array_agg(te.player_id)
     into v_players
     from tournament_entries te
@@ -161,8 +257,7 @@ begin
       select array_agg(tp.player_id)
       into v_players
       from tournament_entries te
-      join teams tm on tm.id = te.team_id
-      join team_players tp on tp.team_id = tm.id
+      join team_players tp on tp.team_id = te.team_id
       where te.id = v_entry_id;
     end if;
 
@@ -180,14 +275,13 @@ begin
       continue;
     end if;
 
-    -- Mỗi player member trong đội nhận bonus_delta / team_size
+    -- Chia delta đều cho các player trong entry
     if v_players is not null then
       foreach v_player_id in array v_players loop
         v_player_rating := public.get_current_rating(v_player_id);
         if v_player_rating is not null then
           insert into elo_history(
             player_id,
-            match_id,
             tournament_id,
             rating_before,
             rating_after,
@@ -196,22 +290,15 @@ begin
           )
           values (
             v_player_id,
-            null, -- bonus theo thứ hạng, không gắn match cụ thể
             p_tournament_id,
             v_player_rating,
-            v_player_rating + (v_bonus_delta / v_team_size),
-            (v_bonus_delta / v_team_size),
+            v_player_rating + (v_delta / v_team_size),
+            (v_delta / v_team_size),
             now()
           );
         end if;
       end loop;
     end if;
   end loop;
-
-  -- 3. Khóa giải
-  update tournaments
-  set status = 'locked'
-  where id = p_tournament_id;
 end;
 $$;
-

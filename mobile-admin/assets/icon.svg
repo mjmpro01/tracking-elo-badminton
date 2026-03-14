@@ -1,0 +1,53 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <circle cx="512" cy="512" r="512" fill="url(#gradient)"/>
+  
+  <!-- Badminton racket - simplified design -->
+  <g transform="translate(512, 512)">
+    <!-- Main racket frame -->
+    <ellipse cx="0" cy="0" rx="300" ry="380" fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round"/>
+    
+    <!-- Racket strings - simplified grid -->
+    <!-- Vertical strings -->
+    <line x1="-220" y1="-300" x2="-220" y2="300" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    <line x1="-150" y1="-320" x2="-150" y2="320" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    <line x1="-75" y1="-330" x2="-75" y2="330" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    <line x1="0" y1="-340" x2="0" y2="340" stroke="#FFFFFF" stroke-width="5" opacity="0.9"/>
+    <line x1="75" y1="-330" x2="75" y2="330" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    <line x1="150" y1="-320" x2="150" y2="320" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    <line x1="220" y1="-300" x2="220" y2="300" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+    
+    <!-- Horizontal strings -->
+    <ellipse cx="0" cy="-280" rx="200" ry="25" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="-200" rx="220" ry="30" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="-120" rx="235" ry="35" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="-40" rx="245" ry="38" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="40" rx="245" ry="38" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="120" rx="235" ry="35" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="200" rx="220" ry="30" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    <ellipse cx="0" cy="280" rx="200" ry="25" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.75"/>
+    
+    <!-- Racket handle -->
+    <rect x="-30" y="340" width="60" height="140" rx="30" fill="#FFFFFF" opacity="0.95"/>
+    
+    <!-- Shuttlecock - simplified -->
+    <g transform="translate(-100, -250)">
+      <!-- Shuttlecock body -->
+      <ellipse cx="0" cy="0" rx="28" ry="45" fill="#FFFFFF" opacity="0.95"/>
+      <!-- Shuttlecock feathers - 4 main feathers -->
+      <path d="M -35 -12 L -30 0 L -35 12" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M 35 -12 L 30 0 L 35 12" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M -12 -35 L 0 -30 L 12 -35" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M -12 35 L 0 30 L 12 35" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.9"/>
+    </g>
+  </g>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2b6cee;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#137fec;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0b5bb0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

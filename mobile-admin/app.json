@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "mobile-admin",
+    "slug": "mobile-admin",
+    "scheme": "mobile-admin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2b6cee"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mobileadmin.app.dev",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.mobileadmin.app.dev",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#2b6cee",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

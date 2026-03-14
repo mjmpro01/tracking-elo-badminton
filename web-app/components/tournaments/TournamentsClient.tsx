@@ -4,6 +4,38 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { supabase } from "../../lib/supabaseClient";
 
+// Helper function để xử lý URL ảnh từ Supabase Storage
+function getImageUrl(imageUrl: string | null | undefined): string | null {
+  if (!imageUrl || typeof imageUrl !== "string" || imageUrl.trim().length === 0) {
+    return null;
+  }
+  
+  const trimmedUrl = imageUrl.trim();
+  
+  // Nếu đã là full URL (http:// hoặc https://), trả về nguyên
+  if (trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")) {
+    return trimmedUrl;
+  }
+  
+  // Nếu là path tương đối, tạo public URL từ Supabase Storage
+  // Tournament covers được lưu trong bucket "player-avatars" (theo cách mobile-admin upload)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (supabaseUrl) {
+    // Nếu path đã chứa "storage/v1/object/public", chỉ cần thêm domain
+    if (trimmedUrl.startsWith("storage/v1/object/public/")) {
+      return `${supabaseUrl}/${trimmedUrl}`;
+    }
+    // Nếu path đã chứa bucket name, thêm prefix storage
+    if (trimmedUrl.startsWith("player-avatars/")) {
+      return `${supabaseUrl}/storage/v1/object/public/${trimmedUrl}`;
+    }
+    // Nếu không, giả sử là path trong bucket "player-avatars" (có thể là tournaments/xxx.jpg)
+    return `${supabaseUrl}/storage/v1/object/public/player-avatars/${trimmedUrl}`;
+  }
+  
+  return trimmedUrl;
+}
+
 type TopPerformer = {
   name: string;
   eloDelta: number;
@@ -150,7 +182,7 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
       level,
       teamsCount: entryCounts.get(tid) || 0,
       kFactor: kFactor,
-      coverImageUrl: tournament.cover_image_url,
+      coverImageUrl: getImageUrl(tournament.cover_image_url),
       badgeVariant,
       topPerformers,
     };

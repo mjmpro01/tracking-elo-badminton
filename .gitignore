@@ -61,3 +61,21 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Mobile Admin (React Native / Expo)
+mobile-admin/node_modules/
+mobile-admin/ios/Pods/
+mobile-admin/ios/build/
+mobile-admin/ios/*.xcworkspace
+mobile-admin/ios/*.xcuserdata
+mobile-admin/android/app/build/
+mobile-admin/android/.gradle/
+mobile-admin/android/local.properties
+mobile-admin/.expo/
+mobile-admin/.expo-shared/
+mobile-admin/dist/
+mobile-admin/web-build/
+mobile-admin/*.log
+
+# Expo
+exp:/
