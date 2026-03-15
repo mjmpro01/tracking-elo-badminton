@@ -41,7 +41,7 @@ const FILTERS: { label: string; value: TournamentStatus | undefined }[] = [
 ];
 
 function renderStatusBadge(status: TournamentStatus) {
-  let label = status;
+  let label: string = status;
   let background = "bg-slate-100";
   let textColor = "text-slate-600";
 
