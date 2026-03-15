@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Script để build iOS app cho device thật
+
+cd /Users/duyminhle/AI/badminton-tracking-elo/mobile-admin
+
+echo "📱 Build iOS App cho iPhone thật"
+echo ""
+
+# Kiểm tra EAS CLI
+if ! command -v eas &> /dev/null; then
+    echo "❌ EAS CLI chưa được cài đặt"
+    echo "   Đang cài đặt..."
+    npm install -g eas-cli
+    echo ""
+fi
+
+echo "═══════════════════════════════════════════════════════════"
+echo "CÁCH 1: Build với EAS Build (Khuyến nghị - Dễ nhất)"
+echo "═══════════════════════════════════════════════════════════"
+echo ""
+echo "Bước 1: Đăng nhập Expo account"
+echo "   eas login"
+echo ""
+echo "Bước 2: Build development build (cho device thật)"
+echo "   eas build --platform ios --profile development"
+echo ""
+echo "   Hoặc build preview (ad-hoc, không cần development client):"
+echo "   eas build --platform ios --profile preview"
+echo ""
+echo "Bước 3: Sau khi build xong, scan QR code hoặc download file .ipa"
+echo "   Cài đặt lên iPhone qua:"
+echo "   - AirDrop file .ipa"
+echo "   - Hoặc dùng link download từ EAS"
+echo ""
+echo "═══════════════════════════════════════════════════════════"
+echo "CÁCH 2: Build Local với Xcode (Nhanh hơn, nhưng phức tạp hơn)"
+echo "═══════════════════════════════════════════════════════════"
+echo ""
+echo "Bước 1: Prebuild"
+echo "   npx expo prebuild --clean"
+echo ""
+echo "Bước 2: Mở Xcode"
+echo "   open ios/mobileadmin.xcworkspace"
+echo ""
+echo "Bước 3: Kết nối iPhone và build"
+echo "   - Kết nối iPhone vào Mac qua USB"
+echo "   - Trong Xcode, chọn iPhone của bạn làm target device"
+echo "   - Product → Run (Cmd + R)"
+echo "   - Xcode sẽ tự động build và install lên iPhone"
+echo ""
+echo "═══════════════════════════════════════════════════════════"
+echo "💡 Lưu ý:"
+echo "═══════════════════════════════════════════════════════════"
+echo ""
+echo "⚠️  Cần có:"
+echo "   - Apple ID (miễn phí) hoặc Apple Developer account"
+echo "   - iPhone đã được trust computer"
+echo "   - Đã enable Developer Mode trên iPhone (Settings → Privacy & Security)"
+echo ""
+echo "📝 Nếu dùng Apple ID miễn phí:"
+echo "   - App chỉ chạy được 7 ngày"
+echo "   - Cần rebuild sau 7 ngày"
+echo ""
+echo "📝 Nếu có Apple Developer account ($99/năm):"
+echo "   - App chạy được 1 năm"
+echo "   - Có thể distribute cho nhiều devices"
+echo ""

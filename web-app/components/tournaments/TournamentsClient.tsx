@@ -57,11 +57,11 @@ type TournamentCard = {
 };
 
 async function fetchTournaments(): Promise<TournamentCard[]> {
-  // Fetch finished/locked tournaments
+  // Fetch finished/locked/upcoming tournaments
   const { data: tournaments, error: tournamentsError } = await supabase
     .from("tournaments")
-    .select("id, name, cover_image_url, k_factor, end_date, start_date, created_at")
-    .in("status", ["finished", "locked"])
+    .select("id, name, cover_image_url, k_factor, end_date, start_date, created_at, status")
+    .in("status", ["finished", "locked", "upcoming"])
     .order("end_date", { ascending: false, nullsFirst: false })
     .order("start_date", { ascending: false, nullsFirst: false })
     .order("created_at", { ascending: false });
@@ -86,16 +86,25 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
     entryCounts.set(tid, (entryCounts.get(tid) || 0) + 1);
   });
 
-  // Get top 3 performers for each tournament
-  const { data: standings, error: standingsError } = await supabase
-    .from("tournament_standings")
-    .select("tournament_id, entry_id, position")
-    .in("tournament_id", tournamentIds)
-    .in("position", [1, 2, 3])
-    .order("tournament_id")
-    .order("position", { ascending: true });
-
-  if (standingsError) throw standingsError;
+  // Get top 3 performers for each tournament (only for finished/locked tournaments)
+  // Upcoming tournaments may not have standings yet
+  const finishedTournamentIds = tournaments
+    ?.filter((t: any) => t.status === "finished" || t.status === "locked")
+    .map((t: any) => t.id) || [];
+  
+  let standings: any[] | null = null;
+  if (finishedTournamentIds.length > 0) {
+    const { data: standingsData, error: standingsError } = await supabase
+      .from("tournament_standings")
+      .select("tournament_id, entry_id, position")
+      .in("tournament_id", finishedTournamentIds)
+      .in("position", [1, 2, 3])
+      .order("tournament_id")
+      .order("position", { ascending: true });
+    
+    if (standingsError) throw standingsError;
+    standings = standingsData;
+  }
 
   // Get entry details for top performers
   const entryIds = standings?.map((s) => s.entry_id) || [];

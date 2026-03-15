@@ -65,3 +65,8 @@ npx expo prebuild -p ios --clean
 ## Đã sửa:
 ✅ `ExpoAppDelegate.getSubscriberOfType` → `ExpoAppDelegateSubscriberRepository.getSubscriberOfType`
 ✅ `EXFatal(EXErrorWithMessage(...))` → `assertionFailure(...)`
+✅ **Đã thêm post_install hook vào Podfile để fix duplicate EXImageLoader symbols:**
+   - Loại bỏ `-l"EXImageLoader"` khỏi `OTHER_LDFLAGS` trong build settings
+   - Loại bỏ `-l"EXImageLoader"` khỏi xcconfig files
+   - Set C++ standard thành `c++17`
+   - Đã chạy `pod install` thành công

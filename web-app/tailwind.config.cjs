@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#137fec",
+        primary: "#2b6cee",
         "primary-content": "#ffffff",
-        "primary-dark": "#0b5bb0",
-        "primary-light": "#54a3f2",
-        "background-light": "#f6f7f8",
-        "background-dark": "#101922"
+        "primary-dark": "#1e4fd4",
+        "primary-light": "#5b8ef0",
+        "background-light": "#f6f6f8",
+        "background-dark": "#101622"
       },
       fontFamily: {
         display: ["Lexend", "sans-serif"]
