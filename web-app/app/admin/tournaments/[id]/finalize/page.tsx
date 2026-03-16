@@ -275,7 +275,7 @@ export default function FinalizeRankingPage() {
                 {tournament?.name || "Tournament"}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Finalize Rankings
+                Xác Nhận Xếp Hạng
               </p>
             </div>
             <div className="w-8" />
@@ -330,7 +330,7 @@ export default function FinalizeRankingPage() {
               {rows.length} entries ranked
             </div>
             <div className="text-xs text-slate-500 dark:text-slate-400">
-              Auto-sorted by Points
+              Tự động sắp xếp theo Điểm
             </div>
           </div>
           {!isReadOnly && (
@@ -344,7 +344,7 @@ export default function FinalizeRankingPage() {
               ) : (
                 <>
                   <span className="material-symbols-outlined text-lg">lock</span>
-                  <span>Confirm Final Rankings</span>
+                  <span>Xác Nhận Xếp Hạng Cuối</span>
                 </>
               )}
             </button>

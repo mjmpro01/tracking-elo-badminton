@@ -226,13 +226,13 @@ export default function CreateTournamentPage() {
   const handleStep1Next = async () => {
     let valid = true;
     if (!tournamentName.trim()) {
-      setNameError("Tournament name is required");
+      setNameError("Tên giải đấu là bắt buộc");
       valid = false;
     } else {
       setNameError(null);
     }
     if (!selectedDay) {
-      setDateError("Please select a date");
+      setDateError("Vui lòng chọn ngày");
       valid = false;
     } else {
       setDateError(null);
@@ -274,13 +274,13 @@ export default function CreateTournamentPage() {
   const handleStep3Next = () => {
     if (mode === "singles") {
       if (singlePlayers.length < 2) {
-        setError("Need at least 2 players for singles tournament");
+        setError("Cần ít nhất 2 người chơi cho giải đơn");
         return;
       }
       router.push(`/admin/tournaments/create/review?mode=singles&players=${encodeURIComponent(JSON.stringify(singlePlayers))}&kFactor=${selectedK}&name=${encodeURIComponent(tournamentName)}&date=${selectedDay ? new Date(year, month, selectedDay).toISOString() : ""}&cover=${encodeURIComponent(coverImageUrl)}`);
     } else {
       if (teams.length < 1) {
-        setError("Need at least 1 team for doubles tournament");
+        setError("Cần ít nhất 1 đội cho giải đôi");
         return;
       }
       router.push(`/admin/tournaments/create/review?mode=doubles&teams=${encodeURIComponent(JSON.stringify(teams))}&players=${encodeURIComponent(JSON.stringify(singlePlayers))}&kFactor=${selectedK}&name=${encodeURIComponent(tournamentName)}&date=${selectedDay ? new Date(year, month, selectedDay).toISOString() : ""}&cover=${encodeURIComponent(coverImageUrl)}`);
@@ -396,7 +396,7 @@ export default function CreateTournamentPage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              {step === 1 ? "Create Tournament" : step === 2 ? "Select Players" : step === 3 ? (mode === "singles" ? "Singles Setup" : "Doubles Setup") : "Review"}
+              {step === 1 ? "Tạo Giải Đấu" : step === 2 ? "Chọn Người Chơi" : step === 3 ? (mode === "singles" ? "Thiết Lập Đơn" : "Thiết Lập Đôi") : "Xem Lại"}
             </h1>
             <div className="w-8" />
           </div>
@@ -429,14 +429,14 @@ export default function CreateTournamentPage() {
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                Tournament Details
+                Chi Tiết Giải Đấu
               </h2>
             </div>
 
             {/* Tournament Name */}
             <div>
               <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
-                Tournament Name
+                Tên Giải Đấu
               </label>
               <div className="relative">
                 <input
@@ -459,7 +459,7 @@ export default function CreateTournamentPage() {
             {/* Tournament Cover */}
             <div>
               <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
-                Tournament Cover
+                Ảnh Bìa Giải Đấu
               </label>
               <div className="relative">
                 <input
@@ -488,7 +488,7 @@ export default function CreateTournamentPage() {
                     <>
                       <span className="material-symbols-outlined text-slate-400 text-4xl">photo</span>
                       <span className="text-sm text-slate-500 dark:text-slate-400">
-                        Tap to upload tournament banner
+                        Nhấn để tải ảnh bìa giải đấu
                       </span>
                     </>
                   )}
@@ -504,7 +504,7 @@ export default function CreateTournamentPage() {
             {/* Date - Calendar */}
             <div>
               <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
-                Date
+                Ngày
               </label>
               <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-600 p-3">
                 <div className="flex items-center justify-between mb-2">
@@ -575,7 +575,7 @@ export default function CreateTournamentPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium text-slate-500 dark:text-slate-400">
-                  K-Factor Sensitivity
+                  Độ Nhạy K-Factor
                 </label>
                 <button className="text-xs text-primary font-medium">What is this?</button>
               </div>
@@ -601,7 +601,7 @@ export default function CreateTournamentPage() {
           </div>
         )}
 
-        {/* Step 2: Select Players */}
+        {/* Step 2: Chọn Người Chơi */}
         {step === 2 && (
           <div className="space-y-6">
             {/* Search bar */}
@@ -613,7 +613,7 @@ export default function CreateTournamentPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search players by name..."
+                placeholder="Tìm kiếm người chơi theo tên..."
                 className="flex-1 bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none text-base"
               />
             </div>
@@ -621,13 +621,13 @@ export default function CreateTournamentPage() {
             {/* Header row */}
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                Available Players
+                Người Chơi Có Sẵn
               </h2>
               <button
                 onClick={handleSelectAll}
                 className="text-sm font-semibold text-primary"
               >
-                Select All
+                Chọn Tất Cả
               </button>
             </div>
 
@@ -702,10 +702,10 @@ export default function CreateTournamentPage() {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                  Can't find a player?
+                  Không tìm thấy người chơi?
                 </p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Add them quickly to the tournament list.
+                  Thêm họ nhanh vào danh sách giải đấu.
                 </p>
               </div>
               <button
@@ -715,19 +715,19 @@ export default function CreateTournamentPage() {
                 }}
                 className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-xs font-semibold text-primary"
               >
-                Quick Add
+                Thêm Nhanh
               </button>
             </div>
           </div>
         )}
 
-        {/* Step 3: Singles/Doubles Setup */}
+        {/* Step 3: Thiết Lập Đơn/Đôi */}
         {step === 3 && (
           <div className="space-y-6">
             {/* Tournament type toggle */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">
-                Tournament Type
+                Loại Giải Đấu
               </label>
               <div className="flex bg-slate-200 dark:bg-slate-700 rounded-2xl p-1">
                 <button
@@ -743,7 +743,7 @@ export default function CreateTournamentPage() {
                       mode === "singles" ? "text-primary" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
-                    Singles
+                    Đơn
                   </span>
                 </button>
                 <button
@@ -759,7 +759,7 @@ export default function CreateTournamentPage() {
                       mode === "doubles" ? "text-primary" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
-                    Doubles
+                    Đôi
                   </span>
                 </button>
               </div>
@@ -836,7 +836,7 @@ export default function CreateTournamentPage() {
                   onClick={handleAutoGenerateTeams}
                   className="w-full bg-primary text-white rounded-xl px-4 py-3 font-semibold hover:bg-primary/90 transition-colors"
                 >
-                  Auto-generate Balanced Teams
+                  Tự Động Tạo Đội Cân Bằng
                 </button>
                 <p className="text-xs text-center text-slate-500 dark:text-slate-400">
                   Uses combined Elo ratings to create fair matchups
@@ -918,7 +918,7 @@ export default function CreateTournamentPage() {
 
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">
-                    Unassigned Players ({sortedPlayersForDoubles.length})
+                    Người Chơi Chưa Phân Đội ({sortedPlayersForDoubles.length})
                   </h3>
                   <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-2">
                     {sortedPlayersForDoubles.map((player) => {
@@ -966,7 +966,7 @@ export default function CreateTournamentPage() {
               className="flex-1 bg-slate-500 text-white rounded-full px-4 py-3 font-semibold hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={coverUploading}
             >
-              Back
+              Quay Lại
             </button>
           ) : (
             <div className="flex-1" />
@@ -980,7 +980,7 @@ export default function CreateTournamentPage() {
             disabled={coverUploading}
             className="flex-1 bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {coverUploading ? "Uploading..." : step === 3 ? "Continue" : "Next Step"}
+            {coverUploading ? "Đang tải lên..." : step === 3 ? "Tiếp Tục" : "Bước Tiếp"}
           </button>
         </div>
       </div>

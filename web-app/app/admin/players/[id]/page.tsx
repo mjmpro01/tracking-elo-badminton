@@ -160,7 +160,7 @@ export default function EditPlayerPage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Edit Player Profile
+              Chỉnh Sửa Hồ Sơ Người Chơi
             </h1>
             <div className="w-8" />
           </div>
@@ -219,12 +219,12 @@ export default function EditPlayerPage() {
         {/* Personal Information */}
         <div className="mb-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-3">
-            Personal Information
+            Thông Tin Cá Nhân
           </h3>
 
           <div className="mb-3">
             <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1.5">
-              Full Name
+              Họ và Tên
             </label>
             <input
               type="text"
@@ -238,14 +238,14 @@ export default function EditPlayerPage() {
           {/* ELO Display (Read-only) */}
           <div className="mb-3">
             <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1.5">
-              Current ELO
+              ELO Hiện Tại
             </label>
             <div className="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50">
               <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                 {Math.round(playerData.rating ?? 1000)}
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                ELO chỉ được cập nhật thông qua kết quả tournament
+                ELO chỉ được cập nhật thông qua kết quả giải đấu
               </p>
             </div>
           </div>
@@ -255,10 +255,10 @@ export default function EditPlayerPage() {
         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-3 mb-6 flex items-center justify-between">
           <div>
             <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
-              Active Member
+              Thành Viên Hoạt Động
             </p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-              Available for tournament invitations
+              Có sẵn cho lời mời giải đấu
             </p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -281,7 +281,7 @@ export default function EditPlayerPage() {
             disabled={!canSubmit}
             className="w-full bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Saving..." : "Save Changes"}
+            {loading ? "Đang lưu..." : "Lưu Thay Đổi"}
           </button>
         </div>
       </div>

@@ -115,6 +115,19 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
 
   if (entryDetailsError) throw entryDetailsError;
 
+  // Get team players for doubles entries
+  const teamIds = entryDetails?.filter((e: any) => e.team_id).map((e: any) => e.team_id) || [];
+  let teamPlayers: any[] = [];
+  if (teamIds.length > 0) {
+    const { data: teamPlayersData, error: teamPlayersError } = await supabase
+      .from("team_players")
+      .select("team_id, player_id")
+      .in("team_id", teamIds);
+    
+    if (teamPlayersError) throw teamPlayersError;
+    teamPlayers = teamPlayersData || [];
+  }
+
   // Map entry_id to details
   const entryMap = new Map();
   entryDetails?.forEach((entry: any) => {
@@ -124,7 +137,7 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
     });
   });
 
-  // Get Elo deltas for top performers (only for player entries)
+  // Get Elo deltas for top performers (for both player and team entries)
   const { data: eloHistory, error: eloHistoryError } = await supabase
     .from("elo_history")
     .select("tournament_id, player_id, delta")
@@ -132,14 +145,8 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
 
   if (eloHistoryError) throw eloHistoryError;
 
-  // Calculate total Elo delta per player per tournament
-  const eloDeltas = new Map<string, number>();
-  eloHistory?.forEach((eh: any) => {
-    if (eh.player_id) {
-      const key = `${eh.tournament_id}_${eh.player_id}`;
-      eloDeltas.set(key, (eloDeltas.get(key) || 0) + Number(eh.delta));
-    }
-  });
+  // Calculate total Elo delta per entry per tournament (handles both singles and doubles)
+  // We'll calculate this inside the tournament loop since we need tournament_id
 
   // Build tournament cards
   const tournamentCards: TournamentCard[] = tournaments.map((tournament: any) => {
@@ -151,13 +158,27 @@ async function fetchTournaments(): Promise<TournamentCard[]> {
       .slice(0, 3)
       .map((standing) => {
         const entryDetail = entryMap.get(standing.entry_id);
-        // Find player_id from entry
         const entry = entryDetails?.find((e: any) => e.id === standing.entry_id);
-        const playerId = entry?.player_id;
         
-        // Get Elo delta for this player in this tournament
-        const eloKey = `${tid}_${playerId}`;
-        const delta = playerId ? (eloDeltas.get(eloKey) || 0) : 0;
+        // Calculate Elo delta for this entry in this tournament
+        let delta = 0;
+        if (entry) {
+          if (entry.team_id) {
+            // For doubles: sum deltas for all players in team
+            const teamPlayerIds =
+              teamPlayers
+                .filter((tp: any) => tp.team_id === entry.team_id)
+                .map((tp: any) => tp.player_id) || [];
+            delta = eloHistory
+              ?.filter((eh: any) => teamPlayerIds.includes(eh.player_id) && eh.tournament_id === tid)
+              .reduce((sum: number, eh: any) => sum + Number(eh.delta), 0) || 0;
+          } else if (entry.player_id) {
+            // For singles: get delta for this player
+            delta = eloHistory
+              ?.filter((eh: any) => eh.player_id === entry.player_id && eh.tournament_id === tid)
+              .reduce((sum: number, eh: any) => sum + Number(eh.delta), 0) || 0;
+          }
+        }
 
         return {
           name: entryDetail?.name || "Unknown",
@@ -364,7 +385,7 @@ export function TournamentsClient({
             {tournament.topPerformers.length > 0 && (
               <div className="flex flex-col gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-slate-100 dark:border-slate-800">
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
-                  Top Performers
+                  Top Người Chơi
                 </p>
                 <div className="flex flex-wrap gap-3 sm:gap-6">
                   {tournament.topPerformers.map((performer) => (
@@ -404,7 +425,7 @@ export function TournamentsClient({
                         </span>
                         <span className="text-[10px] sm:text-xs text-slate-500">
                           {performer.eloDelta >= 0 ? "+" : ""}
-                          {performer.eloDelta} Elo
+                          {performer.eloDelta} ELO
                         </span>
                       </div>
                     </div>
@@ -419,7 +440,7 @@ export function TournamentsClient({
               href={`/tournaments/${tournament.id}`}
               className="w-full flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white hover:border-primary dark:hover:bg-primary dark:hover:border-primary text-slate-700 dark:text-slate-200 font-bold py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg transition-all text-xs sm:text-sm group"
             >
-              <span>View Details</span>
+              <span>Xem Chi Tiết</span>
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
                 fill="none"
@@ -455,7 +476,7 @@ export function TournamentsClient({
               d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
             />
           </svg>
-          Load more tournaments
+          Tải thêm giải đấu
         </button>
       </div>
     </section>

@@ -13,7 +13,7 @@ export default function AdminDashboardPage() {
       {/* Current Tournament - Match mobile design */}
       <section className="mb-6">
         <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">
-          Current Tournament
+          Giải Đấu Hiện Tại
         </h2>
         {isLoading ? (
           <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-8 text-center">
@@ -42,26 +42,26 @@ export default function AdminDashboardPage() {
                     <div className="w-2 h-2 rounded-full bg-primary"></div>
                     <span className="text-sm font-medium text-primary">
                       {latestTournament.status === "ongoing"
-                        ? "In Progress"
+                        ? "Đang Diễn Ra"
                         : latestTournament.status === "finished"
-                        ? "Finished"
+                        ? "Đã Kết Thúc"
                         : latestTournament.status === "upcoming"
-                        ? "Upcoming"
-                        : "Locked"}
+                        ? "Sắp Diễn Ra"
+                        : "Đã Khóa"}
                     </span>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
                       <span className="material-symbols-outlined text-sm">groups</span>
-                      <span>Players</span>
+                      <span>Người Chơi</span>
                     </div>
                     {latestTournament.start_date && (
                       <div className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
                         <span className="material-symbols-outlined text-sm">calendar_today</span>
                         <span>
-                          Started {new Date(latestTournament.start_date).toLocaleDateString("en-US", {
-                            month: "short",
+                          Bắt đầu {new Date(latestTournament.start_date).toLocaleDateString("vi-VN", {
                             day: "numeric",
+                            month: "numeric",
                             year: "numeric",
                           })}
                         </span>
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
                   onClick={() => router.push(`/admin/tournaments/${latestTournament.id}`)}
                   className="bg-primary text-white rounded-lg px-5 py-2 text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20 flex-shrink-0"
                 >
-                  Manage
+                  Quản Lý
                 </button>
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function AdminDashboardPage() {
       {/* Quick Actions - Match mobile design */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
         <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">
-          Quick Actions
+          Thao Tác Nhanh
         </h2>
         <div className="flex gap-4">
           <Link
@@ -99,7 +99,7 @@ export default function AdminDashboardPage() {
               <span className="material-symbols-outlined text-primary text-2xl">add_circle</span>
             </div>
             <span className="text-[11px] font-semibold text-slate-900 dark:text-slate-100 text-center leading-tight">
-              Create Tournament
+              Tạo Giải Đấu
             </span>
           </Link>
           <Link
@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
               <span className="material-symbols-outlined text-primary text-2xl">person_add</span>
             </div>
             <span className="text-[11px] font-semibold text-slate-900 dark:text-slate-100 text-center leading-tight">
-              Quick Add Player
+              Thêm Người Chơi
             </span>
           </Link>
         </div>

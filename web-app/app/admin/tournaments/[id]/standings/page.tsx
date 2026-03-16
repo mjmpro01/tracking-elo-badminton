@@ -89,6 +89,7 @@ export default function LiveStandingsPage() {
     const isSilver = position === 2;
     const isBronze = position === 3;
 
+    // Trả lại style cũ: chỉ top 1 vàng, top 2 xám, top 3 cam
     const cardClass = isGold
       ? "bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 border-yellow-300 dark:border-yellow-700"
       : isSilver
@@ -260,7 +261,7 @@ export default function LiveStandingsPage() {
             </button>
             <div className="flex-1 text-center mr-8">
               <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                Live Standings
+                Bảng Xếp Hạng
               </h1>
             </div>
             <div className="w-8" />

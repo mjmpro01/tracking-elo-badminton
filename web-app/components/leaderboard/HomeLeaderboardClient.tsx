@@ -86,11 +86,11 @@ export function HomeLeaderboardClient() {
         <section className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">
-              Global Leaderboard
+              Bảng Xếp Hạng Toàn Cầu
             </h2>
             <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-xl">
-              Top ranked players based on current Elo rating. Elo is updated
-              when tournaments are finalized.
+              Top người chơi xếp hạng dựa trên ELO hiện tại. ELO được cập nhật
+              khi giải đấu được xác nhận.
             </p>
           </div>
           <div className="w-full md:w-auto">
@@ -101,7 +101,7 @@ export function HomeLeaderboardClient() {
               </div>
               <input
                 className="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 text-sm px-2"
-                placeholder="Search player..."
+                placeholder="Tìm kiếm người chơi..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -172,7 +172,7 @@ function LatestTournamentHero() {
               Latest Major Event
             </p>
             <h1 className="text-slate-900 dark:text-white text-2xl lg:text-3xl font-bold leading-tight tracking-tight">
-              {tournament ? tournament.name : "No tournaments finalized yet"}
+              {tournament ? tournament.name : "Chưa có giải đấu nào được xác nhận"}
             </h1>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -180,7 +180,7 @@ function LatestTournamentHero() {
               <span className="text-slate-400 mt-1 text-xl">📅</span>
               <div>
                 <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
-                  Date
+                  Ngày
                 </p>
                 <p className="text-slate-900 dark:text-slate-200 text-base font-semibold">
                   {tournament
@@ -196,7 +196,7 @@ function LatestTournamentHero() {
               <span className="text-yellow-500 mt-1 text-xl">🏅</span>
               <div>
                 <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
-                  Champion
+                  Vô Địch
                 </p>
                 <p className="text-slate-900 dark:text-slate-200 text-base font-semibold">
                   {tournament?.champion_name ?? "—"}
@@ -208,19 +208,19 @@ function LatestTournamentHero() {
           <div className="flex flex-wrap items-center justify-between w-full gap-4">
             <p className="text-slate-500 dark:text-slate-400 text-sm font-normal max-w-lg">
               {tournament
-                ? `This event featured ${tournament.total_entries ?? 0} ${
-                    (tournament.total_entries ?? 0) === 1 ? "entry" : "entries"
-                  } and ${tournament.total_matches ?? 0} ${
-                    (tournament.total_matches ?? 0) === 1 ? "match" : "matches"
-                  } recorded.`
-                : "Finalized tournaments will appear here once you finish an event in the admin app."}
+                ? `Giải đấu này có ${tournament.total_entries ?? 0} ${
+                    (tournament.total_entries ?? 0) === 1 ? "người tham gia" : "người tham gia"
+                  } và ${tournament.total_matches ?? 0} ${
+                    (tournament.total_matches ?? 0) === 1 ? "trận đấu" : "trận đấu"
+                  } đã được ghi nhận.`
+                : "Các giải đấu đã xác nhận sẽ xuất hiện ở đây sau khi bạn hoàn thành một giải đấu trong ứng dụng admin."}
             </p>
             {tournament && (
               <Link
                 href={`/tournaments/${tournament.id}`}
                 className="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white text-sm font-medium transition-colors gap-2 whitespace-nowrap"
               >
-                <span>View Full Results</span>
+                <span>Xem Kết Quả Đầy Đủ</span>
                 <span className="text-sm">→</span>
               </Link>
             )}

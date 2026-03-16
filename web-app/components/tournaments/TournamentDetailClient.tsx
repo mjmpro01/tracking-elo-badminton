@@ -39,6 +39,7 @@ type Standing = {
   teamDelta: number;
   wins: number;
   losses: number;
+  scoreDifference: number;
 };
 
 type RatingChange = {
@@ -221,6 +222,67 @@ async function fetchStandings(tournamentId: string): Promise<Standing[]> {
 
   if (eloHistoryError) throw eloHistoryError;
 
+  // Get matches to calculate score difference
+  const { data: matches, error: matchesError } = await supabase
+    .from("matches")
+    .select("entry_a_id, entry_b_id, score_a, score_b")
+    .eq("tournament_id", tournamentId)
+    .eq("status", "finished");
+
+  if (matchesError) throw matchesError;
+
+  // Calculate score difference for each entry from matches
+  const scoreDifferenceMap = new Map<string, number>();
+  entryIds.forEach((id) => {
+    scoreDifferenceMap.set(id, 0);
+  });
+
+  const decideWinner = (scoreA: number[], scoreB: number[]): 0 | 1 | 2 => {
+    if (!scoreA.length || scoreA.length !== scoreB.length) return 0;
+    let setsA = 0;
+    let setsB = 0;
+    for (let i = 0; i < scoreA.length; i++) {
+      if (scoreA[i] > scoreB[i]) setsA++;
+      else if (scoreB[i] > scoreA[i]) setsB++;
+    }
+    if (setsA > setsB) return 1;
+    if (setsB > setsA) return 2;
+    const totalA = scoreA.reduce((s, v) => s + v, 0);
+    const totalB = scoreB.reduce((s, v) => s + v, 0);
+    if (totalA > totalB) return 1;
+    if (totalB > totalA) return 2;
+    return 0;
+  };
+
+  (matches ?? []).forEach((m: any) => {
+    const entryAId = m.entry_a_id as string;
+    const entryBId = m.entry_b_id as string;
+    const scoreA = (m.score_a as number[] | null) ?? null;
+    const scoreB = (m.score_b as number[] | null) ?? null;
+    if (!scoreA || !scoreB) return;
+    const winner = decideWinner(scoreA, scoreB);
+    if (winner === 0) return;
+
+    const aDiff = scoreDifferenceMap.get(entryAId) || 0;
+    const bDiff = scoreDifferenceMap.get(entryBId) || 0;
+
+    // Tính tổng điểm cho mỗi bên
+    const totalA = scoreA.reduce((sum: number, s: number) => sum + s, 0);
+    const totalB = scoreB.reduce((sum: number, s: number) => sum + s, 0);
+
+    if (winner === 1) {
+      // Entry A thắng: thêm điểm thắng, trừ điểm thua
+      scoreDifferenceMap.set(entryAId, aDiff + (totalA - totalB));
+      // Entry B thua: trừ điểm thắng, thêm điểm thua (âm)
+      scoreDifferenceMap.set(entryBId, bDiff + (totalB - totalA));
+    } else if (winner === 2) {
+      // Entry B thắng
+      scoreDifferenceMap.set(entryBId, bDiff + (totalB - totalA));
+      // Entry A thua
+      scoreDifferenceMap.set(entryAId, aDiff + (totalA - totalB));
+    }
+  });
+
   // Group deltas by entry (for teams, sum all player deltas)
   const entryDeltas = new Map<string, number>();
   entries?.forEach((entry) => {
@@ -258,6 +320,7 @@ async function fetchStandings(tournamentId: string): Promise<Standing[]> {
       teamDelta: 0,
       wins: standing.wins || 0,
       losses: standing.losses || 0,
+      scoreDifference: scoreDifferenceMap.get(standing.entry_id) || 0,
     };
     }
 
@@ -305,6 +368,7 @@ async function fetchStandings(tournamentId: string): Promise<Standing[]> {
       teamDelta: entryDeltas.get(entry.id) || 0,
       wins: standing.wins || 0,
       losses: standing.losses || 0,
+      scoreDifference: scoreDifferenceMap.get(standing.entry_id) || 0,
     };
   });
 
@@ -696,7 +760,7 @@ export function TournamentDetailClient({
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
             }`}
           >
-            Overview
+            Tổng Quan
           </button>
           <button
             onClick={() => setActiveTab("standings")}
@@ -706,7 +770,7 @@ export function TournamentDetailClient({
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
             }`}
           >
-            Live Standings
+            Bảng Xếp Hạng
           </button>
           <button
             onClick={() => setActiveTab("matches")}
@@ -716,7 +780,7 @@ export function TournamentDetailClient({
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
             }`}
           >
-            History Match
+            Lịch Sử Trận Đấu
           </button>
         </nav>
       </div>
@@ -741,7 +805,7 @@ export function TournamentDetailClient({
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
               />
             </svg>
-            Team Standings
+            Bảng Xếp Hạng Đội
           </h2>
           <div className="flex gap-2">
             <button
@@ -800,19 +864,22 @@ export function TournamentDetailClient({
                     Team / Members
                   </th>
                   <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                    Seed Rating
-                  </th>
-                  <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
                     Score (S)
                   </th>
                   <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                    Expected (E)
+                    Số Trận
+                  </th>
+                  <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
+                    Thắng
+                  </th>
+                  <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
+                    Bại
                   </th>
                   <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
                     +/-
                   </th>
                   <th className="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                    Team Delta
+                    Thay Đổi Đội
                   </th>
                 </tr>
               </thead>
@@ -846,24 +913,27 @@ export function TournamentDetailClient({
                           )}
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-right font-medium text-slate-600 dark:text-slate-300">
-                        {standing.seedRating}
-                      </td>
                       <td className="py-4 px-6 text-right font-medium text-slate-900 dark:text-white">
                         {standing.score}
                       </td>
-                      <td className="py-4 px-6 text-right text-slate-500 dark:text-slate-400">
-                        {standing.expected}
+                      <td className="py-4 px-6 text-right font-medium text-slate-600 dark:text-slate-300">
+                        {standing.wins + standing.losses}
+                      </td>
+                      <td className="py-4 px-6 text-right font-medium text-emerald-600 dark:text-emerald-400">
+                        {standing.wins}
+                      </td>
+                      <td className="py-4 px-6 text-right font-medium text-rose-600 dark:text-rose-400">
+                        {standing.losses}
                       </td>
                       <td className="py-4 px-6 text-right">
                         <span className={`font-medium ${
-                          standing.wins - standing.losses > 0
+                          standing.scoreDifference > 0
                             ? "text-emerald-600 dark:text-emerald-400"
-                            : standing.wins - standing.losses < 0
+                            : standing.scoreDifference < 0
                             ? "text-rose-600 dark:text-rose-400"
                             : "text-slate-600 dark:text-slate-400"
                         }`}>
-                          {standing.wins - standing.losses > 0 ? "+" : ""}{standing.wins - standing.losses}
+                          {standing.scoreDifference > 0 ? "+" : ""}{standing.scoreDifference}
                         </span>
                       </td>
                       <td className="py-4 px-6 text-right">
@@ -925,7 +995,7 @@ export function TournamentDetailClient({
                 ) : (
                   <tr>
                     <td
-                      colSpan={7}
+                      colSpan={8}
                       className="py-8 px-6 text-center text-slate-500 dark:text-slate-400"
                     >
                       Chưa có standings
@@ -1037,17 +1107,17 @@ export function TournamentDetailClient({
                 d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
               />
             </svg>
-            Top Rating Gainers
+            Tăng Hạng Nhiều Nhất
           </h2>
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
             <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Player
+                Người Chơi
               </span>
               <div className="flex gap-8 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                <span className="w-16 text-right">Before</span>
-                <span className="w-16 text-right">Delta</span>
-                <span className="w-16 text-right">After</span>
+                <span className="w-16 text-right">Trước</span>
+                <span className="w-16 text-right">Thay Đổi</span>
+                <span className="w-16 text-right">Sau</span>
               </div>
             </div>
             <ul className="divide-y divide-slate-200 dark:divide-slate-800">
@@ -1080,7 +1150,7 @@ export function TournamentDetailClient({
                 ))
               ) : (
                 <li className="p-4 text-center text-slate-500 dark:text-slate-400">
-                  No data available
+                  Không có dữ liệu
                 </li>
               )}
             </ul>
@@ -1101,17 +1171,17 @@ export function TournamentDetailClient({
                 d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
               />
             </svg>
-            Biggest Rating Drops
+            Giảm Hạng Nhiều Nhất
           </h2>
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
             <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Player
+                Người Chơi
               </span>
               <div className="flex gap-8 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                <span className="w-16 text-right">Before</span>
-                <span className="w-16 text-right">Delta</span>
-                <span className="w-16 text-right">After</span>
+                <span className="w-16 text-right">Trước</span>
+                <span className="w-16 text-right">Thay Đổi</span>
+                <span className="w-16 text-right">Sau</span>
               </div>
             </div>
             <ul className="divide-y divide-slate-200 dark:divide-slate-800">
@@ -1144,7 +1214,7 @@ export function TournamentDetailClient({
                 ))
               ) : (
                 <li className="p-4 text-center text-slate-500 dark:text-slate-400">
-                  No data available
+                  Không có dữ liệu
                 </li>
               )}
             </ul>
@@ -1292,7 +1362,7 @@ function LiveStandingsView({
               </p>
               {row.elo != null && (
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Elo {row.elo}
+                  ELO {row.elo}
                 </p>
               )}
             </div>
@@ -1301,19 +1371,19 @@ function LiveStandingsView({
             <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
               {row.wins + row.losses}
             </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">P</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Đ</p>
           </div>
           <div className="text-center min-w-[3rem]">
             <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
               {row.wins}
             </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">W</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">T</p>
           </div>
           <div className="text-center min-w-[3rem]">
             <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
               {row.losses}
             </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">L</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">B</p>
           </div>
           <div className="text-center min-w-[3rem]">
             <p className={`text-sm font-bold ${
@@ -1329,7 +1399,7 @@ function LiveStandingsView({
           </div>
           <div className="text-right min-w-[4rem]">
             <p className="text-base font-bold text-primary">{row.points}</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Pts</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Điểm</p>
           </div>
         </div>
 
@@ -1362,13 +1432,13 @@ function LiveStandingsView({
               </p>
               {row.elo != null && (
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Elo {row.elo}
+                  ELO {row.elo}
                 </p>
               )}
             </div>
             <div className="text-right">
               <p className="text-lg font-bold text-primary">{row.points}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Pts</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Điểm</p>
             </div>
           </div>
           <div className="flex items-center justify-around pt-2 border-t border-slate-200 dark:border-slate-600">
@@ -1376,19 +1446,19 @@ function LiveStandingsView({
               <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
                 {row.wins + row.losses}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Played</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Đã Chơi</p>
             </div>
             <div className="text-center">
               <p className="text-sm font-bold text-green-600 dark:text-green-400">
                 {row.wins}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Wins</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Thắng</p>
             </div>
             <div className="text-center">
               <p className="text-sm font-bold text-red-600 dark:text-red-400">
                 {row.losses}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Losses</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Thua</p>
             </div>
             <div className="text-center">
               <p className={`text-sm font-bold ${
@@ -1418,23 +1488,23 @@ function LiveStandingsView({
           </div>
           <div className="flex-1">
             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-              Participant
+              Người Chơi
             </span>
           </div>
           <div className="text-center min-w-[3rem]">
-            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">P</span>
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Đ</span>
           </div>
           <div className="text-center min-w-[3rem]">
-            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">W</span>
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">T</span>
           </div>
           <div className="text-center min-w-[3rem]">
-            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">L</span>
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">B</span>
           </div>
           <div className="text-center min-w-[3rem]">
             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">+/-</span>
           </div>
           <div className="text-right min-w-[4rem]">
-            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Pts</span>
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Điểm</span>
           </div>
         </div>
       </div>
@@ -1492,7 +1562,7 @@ function MatchHistoryView({
     const lastScoreA = hasScore ? m.scoreA![m.scoreA!.length - 1] : null;
     const lastScoreB = hasScore ? m.scoreB![m.scoreB!.length - 1] : null;
     const isFinished = m.status === "finished";
-    const statusText = m.status === "finished" ? "Finished" : m.status === "in_progress" ? "In Progress" : "Scheduled";
+    const statusText = m.status === "finished" ? "Đã Kết Thúc" : m.status === "in_progress" ? "Đang Diễn Ra" : "Đã Lên Lịch";
 
     return (
       <div key={m.id} className="border border-slate-200 dark:border-slate-600 rounded-xl overflow-hidden bg-white dark:bg-slate-800">
@@ -1558,7 +1628,7 @@ function MatchHistoryView({
           </span>
           {hasScore && m.scoreA && m.scoreB && (
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-              <span>Sets: {m.scoreA.map((s, i) => `${s}-${m.scoreB![i]}`).join(", ")}</span>
+              <span>Hiệp: {m.scoreA.map((s, i) => `${s}-${m.scoreB![i]}`).join(", ")}</span>
             </div>
           )}
         </div>
@@ -1572,23 +1642,23 @@ function MatchHistoryView({
       <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wide">
-            Singles Matches
+            Trận Đơn
           </h3>
           <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-400">
-            {singlesMatches.length} matches
+            {singlesMatches.length} trận
           </span>
         </div>
         {isLoading ? (
           <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-            Đang tải matches...
+            Đang tải trận đấu...
           </div>
         ) : error ? (
           <div className="text-center py-8 text-red-600 dark:text-red-400">
-            Không tải được matches. Vui lòng thử lại.
+            Không tải được trận đấu. Vui lòng thử lại.
           </div>
         ) : singlesMatches.length === 0 ? (
           <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-            Chưa có singles match nào.
+            Chưa có trận đơn nào.
           </div>
         ) : (
           <div className="space-y-3">
@@ -1601,23 +1671,23 @@ function MatchHistoryView({
       <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wide">
-            Doubles Matches
+            Trận Đôi
           </h3>
           <span className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-xs font-semibold text-blue-700 dark:text-blue-400">
-            {doublesMatches.length} matches
+            {doublesMatches.length} trận
           </span>
         </div>
         {isLoading ? (
           <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-            Đang tải matches...
+            Đang tải trận đấu...
           </div>
         ) : error ? (
           <div className="text-center py-8 text-red-600 dark:text-red-400">
-            Không tải được matches. Vui lòng thử lại.
+            Không tải được trận đấu. Vui lòng thử lại.
           </div>
         ) : doublesMatches.length === 0 ? (
           <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-            Chưa có doubles match nào.
+            Chưa có trận đôi nào.
           </div>
         ) : (
           <div className="space-y-3">

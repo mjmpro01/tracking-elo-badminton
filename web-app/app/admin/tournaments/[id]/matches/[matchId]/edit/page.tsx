@@ -94,7 +94,7 @@ export default function EditMatchScorePage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Enter Score
+              Nhập Điểm
             </h1>
             <div className="w-8" />
           </div>
@@ -104,7 +104,7 @@ export default function EditMatchScorePage() {
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
         <div>
           <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">
-            Match
+            Trận Đấu
           </label>
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1">
             {entryAName} <span className="text-slate-500 dark:text-slate-400 font-normal">vs</span> {entryBName}
@@ -113,7 +113,7 @@ export default function EditMatchScorePage() {
 
         <div>
           <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2 block">
-            Scores (comma separated)
+            Điểm (phân cách bằng dấu phẩy)
           </label>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
             Ví dụ: 21,18 hoặc 21,18,15 – mỗi số là điểm của một set.
@@ -157,7 +157,7 @@ export default function EditMatchScorePage() {
             disabled={submitting}
             className="w-full bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? "Saving..." : "Save Result"}
+            {submitting ? "Đang lưu..." : "Lưu Kết Quả"}
           </button>
         </div>
       </div>

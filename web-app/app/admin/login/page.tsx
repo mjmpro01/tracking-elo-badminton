@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
               <span className="text-3xl">🏆</span>
             </div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-              Admin Login
+              Đăng Nhập Admin
             </h1>
             <p className="text-sm text-slate-500 dark:text-slate-400">
               Đăng nhập để quản lý tournaments, matches và players
@@ -76,7 +76,7 @@ export default function AdminLoginPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
               >
-                Password
+                Mật Khẩu
               </label>
               <input
                 id="password"
@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
               disabled={loading}
               className="w-full bg-primary text-white rounded-lg px-4 py-2.5 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-primary/20"
             >
-              {loading ? "Đang đăng nhập..." : "Login"}
+              {loading ? "Đang đăng nhập..." : "Đăng Nhập"}
             </button>
           </form>
         </div>

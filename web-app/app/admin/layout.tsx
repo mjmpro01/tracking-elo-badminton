@@ -35,10 +35,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   const navItems = [
-    { href: "/admin", label: "Dashboard", icon: "dashboard" },
-    { href: "/admin/tournaments", label: "Tournaments", icon: "emoji_events" },
-    { href: "/admin/players", label: "Players", icon: "people" },
-    { href: "/admin/settings", label: "Settings", icon: "settings" },
+    { href: "/admin", label: "Bảng Điều Khiển", icon: "dashboard" },
+    { href: "/admin/tournaments", label: "Giải Đấu", icon: "emoji_events" },
+    { href: "/admin/players", label: "Người Chơi", icon: "people" },
+    { href: "/admin/settings", label: "Cài Đặt", icon: "settings" },
   ];
 
   return (
@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </div>
             <div className="ml-3">
               <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Admin</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Dashboard</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Bảng Điều Khiển</p>
             </div>
           </div>
           <nav className="flex-1 px-3 space-y-1">
@@ -153,9 +153,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   </span>
                 </div>
                 <div>
-                  <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">Admin Dashboard</h1>
+                  <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">Bảng Điều Khiển Admin</h1>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Welcome back, {user?.email?.split("@")[0] || "Admin"}
+                    Chào mừng trở lại, {user?.email?.split("@")[0] || "Admin"}
                   </p>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <div className="flex items-center gap-2">
               <button
                 className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-                aria-label="Notifications"
+                aria-label="Thông báo"
               >
                 <span className="material-symbols-outlined text-xl">notifications</span>
               </button>
@@ -174,7 +174,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 }}
                 disabled={loading}
                 className="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50"
-                aria-label="Sign out"
+                aria-label="Đăng xuất"
               >
                 <span className="material-symbols-outlined text-xl">logout</span>
               </button>

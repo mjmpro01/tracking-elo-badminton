@@ -232,7 +232,7 @@ export default function TournamentDetailPage() {
               >
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-2xl">add_circle</span>
-                  <span className="text-base font-semibold">Create Match</span>
+                  <span className="text-base font-semibold">Tạo Trận Đấu</span>
                 </div>
               </Link>
 
@@ -245,7 +245,7 @@ export default function TournamentDetailPage() {
                   <div className="flex items-center gap-3">
                     <span className="material-symbols-outlined text-primary text-xl">leaderboard</span>
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      Live Standings
+                      Bảng Xếp Hạng
                     </span>
                   </div>
                 </Link>
@@ -261,7 +261,7 @@ export default function TournamentDetailPage() {
                       emoji_events
                     </span>
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {tournament.status === "finished" ? "View Final Rankings" : "Finalize Rankings"}
+                      {tournament.status === "finished" ? "Xem Xếp Hạng Cuối" : "Xác Nhận Xếp Hạng"}
                     </span>
                   </div>
                 </Link>
@@ -274,19 +274,19 @@ export default function TournamentDetailPage() {
               <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wide">
-                    Singles Matches
+                    Trận Đơn
                   </h3>
                   <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-400">
-                    {singlesMatches.length} matches
+                    {singlesMatches.length} trận
                   </span>
                 </div>
                 {isLoadingMatches ? (
                   <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                    Đang tải matches...
+                    Đang tải trận đấu...
                   </div>
                 ) : singlesMatches.length === 0 ? (
                   <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                    Chưa có singles match nào.
+                    Chưa có trận đơn nào.
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -295,8 +295,8 @@ export default function TournamentDetailPage() {
                       const lastScoreA = hasScore ? m.scoreA![m.scoreA!.length - 1] : null;
                       const lastScoreB = hasScore ? m.scoreB![m.scoreB!.length - 1] : null;
                       const isFinished = m.status === "finished";
-                      const footerLabel = isFinished ? "Edit Result" : "Enter Score";
-                      const statusText = m.status === "finished" ? "Finished" : m.status === "in_progress" ? "In Progress" : "Scheduled";
+                      const footerLabel = isFinished ? "Chỉnh Sửa Kết Quả" : "Nhập Điểm";
+                      const statusText = m.status === "finished" ? "Đã Kết Thúc" : m.status === "in_progress" ? "Đang Diễn Ra" : "Đã Lên Lịch";
 
                       return (
                         <div key={m.id} className="border border-slate-200 dark:border-slate-600 rounded-xl overflow-hidden">
@@ -339,7 +339,7 @@ export default function TournamentDetailPage() {
                                   </div>
                                 )}
                                 <div>
-                                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     {m.entryBName}
                                     {m.entryBElo != null && (
                                       <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">
@@ -382,19 +382,19 @@ export default function TournamentDetailPage() {
               <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wide">
-                    Doubles Matches
+                    Trận Đôi
                   </h3>
                   <span className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-xs font-semibold text-blue-700 dark:text-blue-400">
-                    {doublesMatches.length} matches
+                    {doublesMatches.length} trận
                   </span>
                 </div>
                 {isLoadingMatches ? (
                   <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                    Đang tải matches...
+                    Đang tải trận đấu...
                   </div>
                 ) : doublesMatches.length === 0 ? (
                   <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                    Chưa có doubles match nào.
+                    Chưa có trận đôi nào.
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -403,8 +403,8 @@ export default function TournamentDetailPage() {
                       const lastScoreA = hasScore ? m.scoreA![m.scoreA!.length - 1] : null;
                       const lastScoreB = hasScore ? m.scoreB![m.scoreB!.length - 1] : null;
                       const isFinished = m.status === "finished";
-                      const footerLabel = isFinished ? "Edit Result" : "Enter Score";
-                      const statusText = m.status === "finished" ? "Finished" : m.status === "in_progress" ? "In Progress" : "Scheduled";
+                      const footerLabel = isFinished ? "Chỉnh Sửa Kết Quả" : "Nhập Điểm";
+                      const statusText = m.status === "finished" ? "Đã Kết Thúc" : m.status === "in_progress" ? "Đang Diễn Ra" : "Đã Lên Lịch";
 
                       return (
                         <div key={m.id} className="border border-slate-200 dark:border-slate-600 rounded-xl overflow-hidden">
@@ -471,7 +471,7 @@ export default function TournamentDetailPage() {
                                   </div>
                                 )}
                                 <div>
-                                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     {m.entryBName}
                                     {m.entryBElo != null && (
                                       <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">

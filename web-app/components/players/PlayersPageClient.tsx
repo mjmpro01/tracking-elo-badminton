@@ -16,11 +16,11 @@ export function PlayersPageClient() {
         <section className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">
-              Players
+              Người Chơi
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-xl">
-              Browse all players on the ladder, including their current Elo
-              rating, win rate and match count.
+              Duyệt tất cả người chơi trên bảng xếp hạng, bao gồm ELO hiện tại,
+              tỷ lệ thắng và số trận đấu.
             </p>
           </div>
           <div className="w-full md:w-auto">
@@ -30,7 +30,7 @@ export function PlayersPageClient() {
               </div>
               <input
                 className="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 text-sm px-2"
-                placeholder="Search player..."
+                placeholder="Tìm kiếm người chơi..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

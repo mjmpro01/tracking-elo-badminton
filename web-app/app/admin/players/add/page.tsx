@@ -136,7 +136,7 @@ export default function AddPlayerPage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Create Player Profile
+              Tạo Hồ Sơ Người Chơi
             </h1>
             <div className="w-8" />
           </div>
@@ -195,12 +195,12 @@ export default function AddPlayerPage() {
         {/* Personal Information */}
         <div className="mb-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-3">
-            Personal Information
+            Thông Tin Cá Nhân
           </h3>
 
           <div className="mb-3">
             <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1.5">
-              Full Name
+              Họ và Tên
             </label>
             <input
               type="text"
@@ -213,7 +213,7 @@ export default function AddPlayerPage() {
 
           <div className="mb-3">
             <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1.5">
-              Initial ELO
+              ELO Ban Đầu
             </label>
             <input
               type="number"
@@ -229,10 +229,10 @@ export default function AddPlayerPage() {
         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-600 p-3 mb-6 flex items-center justify-between">
           <div>
             <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
-              Active Member
+              Thành Viên Hoạt Động
             </p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-              Available for tournament invitations
+              Có sẵn cho lời mời giải đấu
             </p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -255,7 +255,7 @@ export default function AddPlayerPage() {
             disabled={!canSubmit}
             className="w-full bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Creating..." : "Create Player Profile"}
+            {loading ? "Đang tạo..." : "Tạo Hồ Sơ Người Chơi"}
           </button>
         </div>
       </div>

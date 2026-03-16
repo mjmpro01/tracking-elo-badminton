@@ -150,7 +150,7 @@ export default function TournamentReviewPage() {
   if (!mode) {
     return (
       <div className="min-h-screen bg-[#f6f6f8] dark:bg-slate-900 flex items-center justify-center">
-        <p className="text-slate-500">Invalid tournament data</p>
+        <p className="text-slate-500">Dữ liệu giải đấu không hợp lệ</p>
       </div>
     );
   }
@@ -170,7 +170,7 @@ export default function TournamentReviewPage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Tournament Review ({mode === "singles" ? "Singles" : "Doubles"})
+              Xem Lại Giải Đấu ({mode === "singles" ? "Đơn" : "Đôi"})
             </h1>
             <div className="w-8" />
           </div>
@@ -180,7 +180,7 @@ export default function TournamentReviewPage() {
       {/* Step indicator */}
       <div className="max-w-4xl mx-auto px-4 pt-2 pb-4">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-sm font-semibold text-primary">Finish</span>
+          <span className="text-sm font-semibold text-primary">Hoàn Thành</span>
           <span className="text-xs text-slate-500 dark:text-slate-400">4 of 4</span>
         </div>
         <div className="flex gap-1.5">
@@ -202,7 +202,7 @@ export default function TournamentReviewPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 mb-1">
-                Tournament Name
+                Tên Giải Đấu
               </p>
               <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                 {tournamentName}
@@ -210,7 +210,7 @@ export default function TournamentReviewPage() {
             </div>
             <div>
               <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 mb-1">
-                Date
+                Ngày
               </p>
               <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                 {formattedDate}
@@ -218,7 +218,7 @@ export default function TournamentReviewPage() {
             </div>
             <div>
               <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 mb-1">
-                Type
+                Loại
               </p>
               <p className="text-sm font-medium text-slate-900 dark:text-slate-100 capitalize">
                 {mode}
@@ -242,11 +242,11 @@ export default function TournamentReviewPage() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-              Selected Participants
+              Người Chơi Đã Chọn
             </h2>
             <div className="px-2 py-1 rounded-full bg-slate-200 dark:bg-slate-700">
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                {mode === "singles" ? `${sortedPlayers.length} Players` : `${sortedTeams.length} Teams`}
+                {mode === "singles" ? `${sortedPlayers.length} Người Chơi` : `${sortedTeams.length} Đội`}
               </span>
             </div>
           </div>
@@ -344,7 +344,7 @@ export default function TournamentReviewPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-bold text-primary">{teamElo}</p>
-                        <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Team Elo</p>
+                        <p className="text-xs uppercase text-slate-500 dark:text-slate-400">ELO Đội</p>
                       </div>
                     </div>
                   );
@@ -363,7 +363,7 @@ export default function TournamentReviewPage() {
             disabled={submitting}
             className="w-full bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? "Creating Tournament..." : "Confirm Tournament"}
+            {submitting ? "Đang tạo giải đấu..." : "Xác Nhận Giải Đấu"}
           </button>
         </div>
       </div>

@@ -13,26 +13,26 @@ export default function TournamentsPage() {
   const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   const sortOptions: { value: SortOption; label: string }[] = [
-    { value: "date-desc", label: "Date (Newest)" },
-    { value: "date-asc", label: "Date (Oldest)" },
-    { value: "name-asc", label: "Name (A-Z)" },
-    { value: "name-desc", label: "Name (Z-A)" },
-    { value: "k-factor-desc", label: "K-Factor (High)" },
-    { value: "k-factor-asc", label: "K-Factor (Low)" },
+    { value: "date-desc", label: "Ngày (Mới Nhất)" },
+    { value: "date-asc", label: "Ngày (Cũ Nhất)" },
+    { value: "name-asc", label: "Tên (A-Z)" },
+    { value: "name-desc", label: "Tên (Z-A)" },
+    { value: "k-factor-desc", label: "K-Factor (Cao)" },
+    { value: "k-factor-asc", label: "K-Factor (Thấp)" },
   ];
 
   const filterOptions: { value: FilterOption; label: string }[] = [
-    { value: "all", label: "All Tournaments" },
-    { value: "major", label: "Major Only" },
-    { value: "minor", label: "Minor Only" },
+    { value: "all", label: "Tất Cả Giải Đấu" },
+    { value: "major", label: "Chỉ Major" },
+    { value: "minor", label: "Chỉ Minor" },
   ];
 
   const getSortLabel = () => {
-    return sortOptions.find((opt) => opt.value === sortOption)?.label || "Sort";
+    return sortOptions.find((opt) => opt.value === sortOption)?.label || "Sắp Xếp";
   };
 
   const getFilterLabel = () => {
-    return filterOptions.find((opt) => opt.value === filterOption)?.label || "Filter";
+    return filterOptions.find((opt) => opt.value === filterOption)?.label || "Lọc";
   };
 
   return (
@@ -40,7 +40,7 @@ export default function TournamentsPage() {
       <section className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div className="flex flex-col gap-2 flex-1 min-w-0">
           <h1 className="text-slate-900 dark:text-white text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">
-            Tournament History
+            Lịch Sử Giải Đấu
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base font-normal leading-normal max-w-xl">
             Archive các giải đã kết thúc, kết quả và top performers. Dùng để
@@ -72,7 +72,7 @@ export default function TournamentsPage() {
                 />
               </svg>
               <span className="hidden sm:inline">{getFilterLabel()}</span>
-              <span className="sm:hidden">Filter</span>
+              <span className="sm:hidden">Lọc</span>
               {showFilterMenu ? (
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4"
@@ -157,7 +157,7 @@ export default function TournamentsPage() {
                 />
               </svg>
               <span className="hidden sm:inline">{getSortLabel()}</span>
-              <span className="sm:hidden">Sort</span>
+              <span className="sm:hidden">Sắp Xếp</span>
               {showSortMenu ? (
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4"

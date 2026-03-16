@@ -47,7 +47,7 @@ export function Header() {
           }
           href="/tournaments"
         >
-          Tournaments
+          Giải Đấu
         </Link>
         <Link
           className={
@@ -57,7 +57,7 @@ export function Header() {
           }
           href="/players"
         >
-          Players
+          Người Chơi
         </Link>
         <Link
           className={
@@ -67,7 +67,7 @@ export function Header() {
           }
           href="/rules"
         >
-          Rules
+          Quy Tắc
         </Link>
       </nav>
 
@@ -134,7 +134,7 @@ export function Header() {
                 href="/tournaments"
                 onClick={closeMenu}
               >
-                Tournaments
+                Giải Đấu
               </Link>
               <Link
                 className={
@@ -145,7 +145,7 @@ export function Header() {
                 href="/players"
                 onClick={closeMenu}
               >
-                Players
+                Người Chơi
               </Link>
               <Link
                 className={
@@ -156,7 +156,7 @@ export function Header() {
                 href="/rules"
                 onClick={closeMenu}
               >
-                Rules
+                Quy Tắc
               </Link>
             </div>
           </nav>

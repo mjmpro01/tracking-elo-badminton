@@ -33,11 +33,11 @@ async function fetchTournaments(status?: TournamentStatus): Promise<Tournament[]
 }
 
 const FILTERS: { label: string; value: TournamentStatus | undefined }[] = [
-  { label: "All", value: undefined },
-  { label: "Upcoming", value: "upcoming" },
-  { label: "Ongoing", value: "ongoing" },
-  { label: "Finished", value: "finished" },
-  { label: "Locked", value: "locked" },
+  { label: "Tất Cả", value: undefined },
+  { label: "Sắp Diễn Ra", value: "upcoming" },
+  { label: "Đang Diễn Ra", value: "ongoing" },
+  { label: "Đã Kết Thúc", value: "finished" },
+  { label: "Đã Khóa", value: "locked" },
 ];
 
 function renderStatusBadge(status: TournamentStatus) {
@@ -47,22 +47,22 @@ function renderStatusBadge(status: TournamentStatus) {
 
   switch (status) {
     case "upcoming":
-      label = "Upcoming";
+      label = "Sắp Diễn Ra";
       background = "bg-blue-100 dark:bg-blue-900/30";
       textColor = "text-blue-600 dark:text-blue-400";
       break;
     case "ongoing":
-      label = "Ongoing";
+      label = "Đang Diễn Ra";
       background = "bg-green-100 dark:bg-green-900/30";
       textColor = "text-green-600 dark:text-green-400";
       break;
     case "finished":
-      label = "Finished";
+      label = "Đã Kết Thúc";
       background = "bg-slate-100 dark:bg-slate-700";
       textColor = "text-slate-600 dark:text-slate-400";
       break;
     case "locked":
-      label = "Locked";
+      label = "Đã Khóa";
       background = "bg-red-100 dark:bg-red-900/30";
       textColor = "text-red-600 dark:text-red-400";
       break;
@@ -94,7 +94,7 @@ export default function TournamentsPage() {
       <div className="mb-5">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-1">
-            Tournaments
+            Giải Đấu
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Quản lý tournaments và điều hướng tới chi tiết.
@@ -105,7 +105,7 @@ export default function TournamentsPage() {
       {/* Filters - Match mobile design */}
       <div className="mb-3 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
         <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase mb-2">
-          Status
+          Trạng Thái
         </h3>
         <div className="flex flex-wrap gap-2">
           {FILTERS.map((filter) => {
@@ -131,7 +131,7 @@ export default function TournamentsPage() {
       <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
         <div className="mb-2 flex items-center justify-between">
           <h3 className="text-base font-semibold text-slate-500 dark:text-slate-400">
-            Danh sách tournaments
+            Danh sách giải đấu
           </h3>
           {isFetching && !isLoading && (
             <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />

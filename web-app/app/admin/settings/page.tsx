@@ -21,7 +21,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-3 mb-2">
           <span className="material-symbols-outlined text-primary text-2xl">settings</span>
           <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-slate-100">
-            Settings
+            Cài Đặt
           </h1>
         </div>
         <p className="text-sm text-slate-500 dark:text-slate-400">Quản lý cài đặt tài khoản</p>
@@ -35,7 +35,7 @@ export default function SettingsPage() {
           className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-red-600 dark:text-red-400">logout</span>
-          <span className="font-bold text-red-600 dark:text-red-400">Log Out</span>
+          <span className="font-bold text-red-600 dark:text-red-400">Đăng Xuất</span>
         </button>
         <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6">
           Version 2.4.0-stable

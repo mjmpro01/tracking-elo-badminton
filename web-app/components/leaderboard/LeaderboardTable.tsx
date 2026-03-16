@@ -94,19 +94,19 @@ export function LeaderboardTable({ search }: { search: string }) {
           <thead>
             <tr className="border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
               <th className="py-3 pl-6 pr-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 w-20">
-                Rank
+                Hạng
               </th>
               <th className="py-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Player
+                Người Chơi
               </th>
               <th className="py-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                Elo
+                ELO
               </th>
               <th className="hidden md:table-cell py-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                Win rate
+                Tỷ Lệ Thắng
               </th>
               <th className="hidden md:table-cell py-3 pl-3 pr-6 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">
-                Matches
+                Trận Đấu
               </th>
             </tr>
           </thead>
@@ -162,19 +162,19 @@ export function LeaderboardTable({ search }: { search: string }) {
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-[#15202b] px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
         <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-          Showing{" "}
+          Hiển thị{" "}
           <span className="font-medium text-slate-900 dark:text-white">
             {total === 0 ? 0 : startIndex + 1}
           </span>{" "}
-          to{" "}
+          đến{" "}
           <span className="font-medium text-slate-900 dark:text-white">
             {endIndex}
           </span>{" "}
-          of{" "}
+          trong{" "}
           <span className="font-medium text-slate-900 dark:text-white">
             {total}
           </span>{" "}
-          results
+          kết quả
         </p>
         <div className="flex gap-2">
           <button
@@ -182,7 +182,7 @@ export function LeaderboardTable({ search }: { search: string }) {
             disabled={currentPage <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
           >
-            Previous
+            Trước
           </button>
           <button
             className="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-white dark:hover:bg-slate-700 transition-colors"
@@ -191,7 +191,7 @@ export function LeaderboardTable({ search }: { search: string }) {
               setPage((p) => (p >= totalPages ? totalPages : p + 1))
             }
           >
-            Next
+            Sau
           </button>
         </div>
       </div>

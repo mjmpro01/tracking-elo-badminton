@@ -226,7 +226,7 @@ export default function CreateMatchPage() {
               </span>
             </button>
             <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Create Match
+              Tạo Trận Đấu
             </h1>
             <div className="w-8" />
           </div>
@@ -237,17 +237,17 @@ export default function CreateMatchPage() {
         {/* Title */}
         <div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">
-            Match Details
+            Chi Tiết Trận Đấu
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Configure the players for the match.
+            Cấu hình người chơi cho trận đấu.
           </p>
         </div>
 
         {/* Type badge */}
         <div>
           <span className="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
-            {isDoubles ? "Doubles Match" : "Singles Match"}
+            {isDoubles ? "Trận Đôi" : "Trận Đơn"}
           </span>
         </div>
 
@@ -255,9 +255,9 @@ export default function CreateMatchPage() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wide">
-              {isDoubles ? "Home Team 1" : "Home Player / Team 1"}
+              {isDoubles ? "Đội Nhà 1" : "Người Chơi / Đội Nhà 1"}
             </label>
-            <span className="text-xs text-primary">Manage Roster</span>
+            <span className="text-xs text-primary">Quản Lý Danh Sách</span>
           </div>
           <button
             onClick={() => {
@@ -271,8 +271,8 @@ export default function CreateMatchPage() {
               {homeId
                 ? options.find((o) => o.id === homeId)?.name
                 : isDoubles
-                  ? "Select team 1"
-                  : "Select player 1"}
+                  ? "Chọn đội 1"
+                  : "Chọn người chơi 1"}
             </span>
             <span className="material-symbols-outlined text-slate-500 text-lg">
               {homeOpen ? "expand_less" : "expand_more"}
@@ -339,7 +339,7 @@ export default function CreateMatchPage() {
         {/* Away side */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wide">
-            {isDoubles ? "Away Team 2" : "Away Player / Team 2"}
+            {isDoubles ? "Đội Khách 2" : "Người Chơi / Đội Khách 2"}
           </label>
           <button
             onClick={() => {
@@ -353,8 +353,8 @@ export default function CreateMatchPage() {
               {awayId
                 ? options.find((o) => o.id === awayId)?.name
                 : isDoubles
-                  ? "Select team 2"
-                  : "Select player 2"}
+                  ? "Chọn đội 2"
+                  : "Chọn người chơi 2"}
             </span>
             <span className="material-symbols-outlined text-slate-500 text-lg">
               {awayOpen ? "expand_less" : "expand_more"}
@@ -424,7 +424,7 @@ export default function CreateMatchPage() {
             disabled={submitting}
             className="w-full bg-primary text-white rounded-full px-4 py-3 font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? "Creating Match..." : "Create Match"}
+            {submitting ? "Đang tạo trận đấu..." : "Tạo Trận Đấu"}
           </button>
         </div>
       </div>
