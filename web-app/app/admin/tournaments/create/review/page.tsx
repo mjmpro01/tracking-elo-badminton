@@ -30,7 +30,9 @@ export default function TournamentReviewPage() {
   const teams: TeamReview[] = searchParams.get("teams")
     ? JSON.parse(decodeURIComponent(searchParams.get("teams")!))
     : [];
-  const kFactor = Number(searchParams.get("kFactor")) || 60;
+  const kFactorParam = searchParams.get("kFactor");
+  const parsedKFactor = kFactorParam == null ? NaN : Number(kFactorParam);
+  const kFactor = Number.isFinite(parsedKFactor) ? parsedKFactor : 60;
   const tournamentName = searchParams.get("name") || "New Tournament";
   const startDateISO = searchParams.get("date") || undefined;
   const coverImageUrl = searchParams.get("cover") || undefined;

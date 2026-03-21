@@ -580,7 +580,7 @@ export default function CreateTournamentPage() {
                 <button className="text-xs text-primary font-medium">What is this?</button>
               </div>
               <div className="flex gap-3">
-                {[40, 60, 80].map((k, index) => (
+                {[0, 40, 60, 80].map((k, index) => (
                   <button
                     key={k}
                     onClick={() => setSelectedK(k)}
@@ -591,9 +591,20 @@ export default function CreateTournamentPage() {
                     }`}
                   >
                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
-                      {index === 0 ? "Friendly" : index === 1 ? "Monthly" : "Major"}
+                      {index === 0
+                        ? "Giao hữu"
+                        : index === 1
+                        ? "Friendly"
+                        : index === 2
+                        ? "Monthly"
+                        : "Major"}
                     </p>
                     <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{k}</p>
+                    {k === 0 && (
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                        Không đổi Elo
+                      </p>
+                    )}
                   </button>
                 ))}
               </div>
