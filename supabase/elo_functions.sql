@@ -131,18 +131,20 @@ $$;
 
 
 -- RPC: finalize thứ hạng giải + (tuỳ chọn) Elo bonus theo vị trí
--- RPC: áp dụng Elo theo xếp hạng cuối cùng (top 3 cộng, các vị trí còn lại trừ)
+-- RPC: áp dụng Elo theo xếp hạng cuối cùng
+--  - Top 3: cộng Elo theo weight hiện tại
+--  - Còn lại: trừ Elo theo weight đảo ngược (hạng càng thấp trừ càng nhiều)
 -- Công thức:
 --  - Dựa trên bảng tournament_standings (đã được lưu bởi client)
 --  - Dùng k_factor của tournament
---  - Tính weight cho từng entry:
---      rank_score = (N - position + 1)
---      rank_score_weighted = rank_score * (1 + points / maxPoints)
+--  - Tính 2 loại weight cho từng entry:
+--      win_weight  = (N - position + 1) * (1 + points / maxPoints)
+--      lose_weight = (position - 3) * (1 + (maxPoints - points) / maxPoints)
 --  - Top 3:
---      gain_ratio = weight / sum(weight_top3)
+--      gain_ratio = win_weight / sum(win_weight_top3)
 --      delta = + round(k_factor * gain_ratio)
 --  - Các vị trí còn lại:
---      loss_ratio = weight / sum(weight_rest)
+--      loss_ratio = lose_weight / sum(lose_weight_rest)
 --      delta = - round(k_factor * LOSS_SCALE * loss_ratio)
 --      (LOSS_SCALE = 0.5 để phạt nhẹ hơn)
 --  - Với doubles: delta chia đều cho các player trong team.
@@ -167,7 +169,8 @@ declare
   v_entry_id          uuid;
   v_position          int;
   v_points            numeric;
-  v_weight            numeric;
+  v_win_weight        numeric;
+  v_lose_weight       numeric;
   v_delta             numeric;
 
   v_players           uuid[];
@@ -196,7 +199,8 @@ begin
     position,
     entry_id,
     points::numeric as points,
-    0::numeric      as weight
+    0::numeric      as win_weight,
+    0::numeric      as lose_weight
   from tournament_standings
   where tournament_id = p_tournament_id
   order by position;
@@ -212,23 +216,28 @@ begin
   -- Tính weight cho từng entry
   -- Lưu ý: Supabase bật extension "safeupdate" nên UPDATE phải có mệnh đề WHERE
   update tmp_final_standings
-  set weight = (v_n_entries - position + 1) * (1 + (points / v_max_points))
+  set
+    -- Weight cộng cho top 3: giữ nguyên công thức cũ
+    win_weight = (v_n_entries - position + 1) * (1 + (points / v_max_points)),
+    -- Weight trừ cho nhóm còn lại: đảo ngược theo position + điểm
+    -- position càng lớn => lose_weight càng lớn
+    lose_weight = greatest(position - 3, 0) * (1 + ((v_max_points - points) / v_max_points))
   where true;
 
   -- Tổng weight cho top 3 và phần còn lại
-  select coalesce(sum(weight), 0)
+  select coalesce(sum(win_weight), 0)
   into v_sum_win_weight
   from tmp_final_standings
   where position <= 3;
 
-  select coalesce(sum(weight), 0)
+  select coalesce(sum(lose_weight), 0)
   into v_sum_lose_weight
   from tmp_final_standings
   where position > 3;
 
   -- Duyệt từng entry để tính delta Elo
-  for v_position, v_entry_id, v_points, v_weight in
-    select position, entry_id, points, weight
+  for v_position, v_entry_id, v_points, v_win_weight, v_lose_weight in
+    select position, entry_id, points, win_weight, lose_weight
     from tmp_final_standings
     order by position
   loop
@@ -236,10 +245,10 @@ begin
 
     if v_position <= 3 and v_sum_win_weight > 0 then
       -- Top 3 được cộng Elo
-      v_delta := round(v_k_factor * (v_weight / v_sum_win_weight));
+      v_delta := round(v_k_factor * (v_win_weight / v_sum_win_weight));
     elsif v_position > 3 and v_sum_lose_weight > 0 then
-      -- Các hạng còn lại bị trừ Elo (nhẹ hơn)
-      v_delta := - round(v_k_factor * v_loss_scale * (v_weight / v_sum_lose_weight));
+      -- Các hạng còn lại bị trừ Elo (hạng càng thấp trừ càng nhiều)
+      v_delta := - round(v_k_factor * v_loss_scale * (v_lose_weight / v_sum_lose_weight));
     end if;
 
     if v_delta = 0 then
