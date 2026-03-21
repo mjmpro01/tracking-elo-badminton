@@ -27,6 +27,19 @@ export async function fetchTournamentStandings(
 
   const entryIds = entries.map((e: any) => e.id as string);
 
+  // Nếu tournament đã finished/locked thì dùng thứ tự đã lưu trong `tournament_standings.position`,
+  // tránh việc sort lại theo Points/Elo làm lệch rank so với thao tác trên UI.
+  const { data: tournamentInfo, error: tournamentInfoError } = await supabase
+    .from("tournaments")
+    .select("status")
+    .eq("id", tournamentId)
+    .single();
+  if (tournamentInfoError) throw tournamentInfoError;
+
+  const tournamentStatus = tournamentInfo?.status as string | null;
+  const shouldUseStoredStandings =
+    tournamentStatus === "finished" || tournamentStatus === "locked";
+
   // 2. Chuẩn bị data cho player/team (tên, Elo, avatar, members)
   const playerIds = Array.from(
     new Set(
@@ -229,17 +242,51 @@ export async function fetchTournamentStandings(
     stat.points = stat.wins * 3;
   });
 
-  // 4. Ghép entryMap + statMap rồi sort theo Points desc, Elo desc
+  // 4. Ghép entryMap + statMap rồi sort:
+  // - Nếu finished/locked: sort theo `tournament_standings.position` đã được bạn confirm.
+  // - Nếu ongoing: sort theo Points desc, Elo desc (auto).
+  let storedStandings: Array<{
+    entry_id: string;
+    position: number;
+    wins: number;
+    losses: number;
+    points: number;
+  }> = [];
+
+  if (shouldUseStoredStandings) {
+    const { data, error: storedStandingsError } = await supabase
+      .from("tournament_standings")
+      .select("entry_id, position, wins, losses, points")
+      .eq("tournament_id", tournamentId)
+      .order("position", { ascending: true });
+
+    if (storedStandingsError) throw storedStandingsError;
+    storedStandings = (data ?? []) as any;
+  }
+
+  const hasStoredStandings = storedStandings.length > 0;
+  const storedStandingsMap = new Map<string, (typeof storedStandings)[number]>(
+    storedStandings.map((r) => [r.entry_id, r]),
+  );
+
   const rows: StandingRow[] = entryIds.map((id) => {
     const entry = entryMap.get(id);
-    const stat = statMap.get(id) ?? { wins: 0, losses: 0, points: 0, scoreDifference: 0 };
+    const stat = statMap.get(id) ?? {
+      wins: 0,
+      losses: 0,
+      points: 0,
+      scoreDifference: 0,
+    };
+    const stored = storedStandingsMap.get(id);
+
     return {
-      position: 0, // set sau khi sort
+      position: stored?.position ?? (hasStoredStandings ? Number.MAX_SAFE_INTEGER : 0),
       entryId: id,
       name: entry?.name ?? "Unknown",
-      wins: stat.wins,
-      losses: stat.losses,
-      points: stat.points,
+      // Nếu có stored standings thì lấy wins/losses/points theo đúng dữ liệu đã lưu.
+      wins: stored?.wins ?? stat.wins,
+      losses: stored?.losses ?? stat.losses,
+      points: stored?.points ?? stat.points,
       scoreDifference: stat.scoreDifference,
       elo: entry?.elo ?? null,
       isDoubles: entry?.isDoubles ?? false,
@@ -248,6 +295,16 @@ export async function fetchTournamentStandings(
     };
   });
 
+  if (hasStoredStandings) {
+    rows.sort((a, b) => a.position - b.position);
+    // Chuẩn hoá position thành 1..N theo thứ tự đã sort để tránh bị hổng/gấp khúc.
+    rows.forEach((r, idx) => {
+      r.position = idx + 1;
+    });
+    return rows;
+  }
+
+  // ongoing: sort auto theo Points desc, Elo desc
   rows.sort((a, b) => {
     if (b.points !== a.points) return b.points - a.points;
     const eloA = a.elo ?? 0;
@@ -255,7 +312,6 @@ export async function fetchTournamentStandings(
     return eloB - eloA;
   });
 
-  // 5. Gán position sau khi sort
   rows.forEach((r, idx) => {
     r.position = idx + 1;
   });
